@@ -1,0 +1,247 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  padding: var(--spacing-4xl) var(--spacing-xl);
+  margin-bottom: var(--spacing-4xl);
+  border-bottom: 1px solid var(--outline);
+}
+
+.titleSection {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-lg);
+  color: var(--on-surface);
+}
+
+.query {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
+}
+
+.count {
+  font-size: 0.95rem;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.05em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  padding: 0 var(--spacing-xl);
+  margin-bottom: var(--spacing-4xl);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s var(--transition-standard);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background: var(--surface-dim);
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s var(--transition-standard);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.content {
+  padding: var(--spacing-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.category {
+  font-size: 0.8rem;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.name {
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-md);
+  color: var(--on-surface);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+  margin-bottom: var(--spacing-lg);
+  flex-grow: 1;
+  line-height: 1.5;
+}
+
+.priceSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--outline);
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.02em;
+}
+
+.viewLink {
+  padding: 8px 16px;
+  background: var(--primary);
+  color: var(--on-primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: all 0.3s var(--transition-standard);
+  border: none;
+  cursor: pointer;
+}
+
+.viewLink:hover {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.empty {
+  padding: var(--spacing-4xl) var(--spacing-xl);
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.empty h2 {
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-md);
+  color: var(--on-surface);
+}
+
+.empty p {
+  font-size: 1.1rem;
+  color: var(--on-surface-variant);
+  margin-bottom: var(--spacing-2xl);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.shopLink {
+  display: inline-block;
+  padding: 12px 32px;
+  background: var(--primary);
+  color: var(--on-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: all 0.3s var(--transition-standard);
+  border: 2px solid var(--primary);
+}
+
+.shopLink:hover {
+  background: transparent;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .empty {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .empty h2 {
+    font-size: 1.5rem;
+  }
+}

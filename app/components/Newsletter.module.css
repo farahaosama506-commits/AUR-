@@ -1,0 +1,104 @@
+.section {
+  padding: var(--spacing-3xl) 0;
+  background-color: var(--surface-container);
+  border-top: 1px solid var(--outline-variant);
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  align-items: center;
+}
+
+.content h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-md);
+}
+
+.content p {
+  font-size: 0.95rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: stretch;
+}
+
+.input {
+  flex: 1;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 2px solid var(--outline-variant);
+  transition: border-color 0.3s var(--transition-standard);
+}
+
+.input::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: var(--secondary);
+}
+
+.button {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: transparent;
+  color: var(--on-surface);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 2px solid var(--outline-variant);
+  cursor: pointer;
+  transition: all 0.3s var(--transition-standard);
+}
+
+.button:hover {
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
+}
+
+.message {
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  color: var(--secondary);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .button {
+    align-self: flex-start;
+  }
+}

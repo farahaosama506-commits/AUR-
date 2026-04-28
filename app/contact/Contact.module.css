@@ -1,0 +1,263 @@
+.main {
+  background-color: var(--background);
+}
+
+/* Hero */
+.hero {
+  padding: var(--spacing-4xl) 0 var(--spacing-3xl);
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.overline {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-xl);
+  color: var(--on-surface);
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+}
+
+/* Section */
+.section {
+  padding: var(--spacing-3xl) 0;
+}
+
+/* Contact Grid */
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--spacing-3xl);
+}
+
+/* Info Side */
+.infoSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.infoCard {
+  background-color: var(--surface);
+  padding: var(--spacing-2xl);
+  border: 1px solid var(--outline-variant);
+  transition: border-color 0.3s var(--transition-standard);
+}
+
+.infoCard:hover {
+  border-color: var(--primary);
+}
+
+.infoIcon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: var(--spacing-md);
+  color: var(--secondary);
+}
+
+.infoTitle {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--spacing-md);
+  color: var(--on-surface);
+}
+
+.infoText {
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+}
+
+/* Form Side */
+.formSide {
+  background-color: var(--surface);
+  padding: var(--spacing-3xl);
+  border: 1px solid var(--outline-variant);
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--spacing-2xl);
+  color: var(--on-surface);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+.input,
+.select,
+.textarea {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--background);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.3s var(--transition-standard);
+  outline: none;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--primary);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.submitButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background-color: var(--on-surface);
+  color: var(--surface);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s var(--transition-standard);
+  align-self: flex-start;
+}
+
+.submitButton:hover {
+  background-color: var(--primary);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.submitButton:hover .arrow {
+  transform: translateX(4px);
+}
+
+.successMessage {
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--primary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .formSide {
+    padding: var(--spacing-xl);
+  }
+}
+/* Back Button */
+.backButton {
+  position: fixed;
+  top: var(--spacing-xl);
+  left: var(--spacing-xl);
+  z-index: 100;
+  background-color: var(--surface);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-standard);
+  backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateX(-2px);
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.loadingSpinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--outline-variant);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

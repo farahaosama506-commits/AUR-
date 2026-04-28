@@ -1,0 +1,207 @@
+.main {
+  background-color: var(--background);
+}
+
+/* Hero */
+.hero {
+  padding: var(--spacing-4xl) 0 var(--spacing-3xl);
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.overline {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-xl);
+  color: var(--on-surface);
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Section */
+.section {
+  padding: var(--spacing-3xl) 0;
+}
+
+/* Principles Grid */
+.principlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--outline-variant);
+}
+
+.card {
+  background-color: var(--surface);
+  padding: var(--spacing-2xl);
+  transition: background-color 0.3s var(--transition-standard);
+}
+
+.card:hover {
+  background-color: var(--surface-container-high);
+}
+
+.cardNumber {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-lg);
+}
+
+.cardTitle {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--spacing-md);
+  color: var(--on-surface);
+  min-height: 3rem;
+}
+
+.cardDescription {
+  font-size: 0.95rem;
+  color: var(--on-surface-variant);
+  line-height: 1.8;
+}
+
+/* Report Banner */
+.reportBanner {
+  padding: var(--spacing-3xl) 0;
+  background-color: var(--on-surface);
+}
+
+.reportContent {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.reportTitle {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--surface);
+  margin-bottom: var(--spacing-md);
+}
+
+.reportText {
+  font-size: 1rem;
+  color: var(--secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.reportButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background-color: transparent;
+  border: 1px solid var(--surface);
+  color: var(--surface);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-standard);
+}
+
+.reportButton:hover {
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+
+.arrow {
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .principlesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardTitle {
+    min-height: auto;
+  }
+}
+/* Back Button */
+.backButton {
+  position: fixed;
+  top: var(--spacing-xl);
+  left: var(--spacing-xl);
+  z-index: 100;
+  background-color: var(--surface);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-standard);
+  backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateX(-2px);
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.loadingSpinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--outline-variant);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

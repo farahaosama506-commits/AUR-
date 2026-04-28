@@ -1,0 +1,152 @@
+.page {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.main {
+  padding-top: 80px;
+}
+
+.header {
+  /* نحذف أو نعدل خصائص الخلفية القديمة لو موجودة */
+  position: relative;
+  padding: 8rem 2rem; /* زيادة padding عشان الصورة تبين */
+  text-align: center;
+  margin-bottom: 3rem;
+
+  /* إضافة صورة الخلفية */
+  background-image: url('/images/shop/shop-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* إضافة طبقة غامقة شفافة فوق الصورة عشان النص يكون واضح */
+  background-color: rgba(0, 0, 0, 0.4); /* لون غامق شفاف */
+  background-blend-mode: overlay; /* دمج اللون مع الصورة */
+
+  /* أو ممكن تستخدم box-shadow داخلي لتعتيم الأطراف */
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+}
+
+/* تأكد إن النص لونه فاتح */
+.header h1 {
+  color: #ffffff;
+  font-size: 3rem; /* ممكن تكبر الخط إذا حبيت */
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2; /* نخليه فوق الطبقة الغامقة */
+}
+
+.header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.controls {
+  padding: 2rem;
+  text-align: center;
+}
+
+.filter {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--outline);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  height: 200px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.category {
+  font-size: 0.8rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--on-surface);
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.addToCart {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.addToCart:hover {
+  background: var(--primary-container);
+}
+
+.cartMessage {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.productImageContain {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;  /* بتظهر الصورة كاملة */
+  background-color: #f5f5f5; /* خلفية للفراغات */
+}

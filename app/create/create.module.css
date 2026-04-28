@@ -1,0 +1,136 @@
+.page {
+  font-family: var(--font-geist-sans);
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.main h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.step {
+  padding: 0.5rem 1rem;
+  background-color: #ddd;
+  border-radius: 20px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  background-color: #667eea;
+  color: white;
+}
+
+.stepContent {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: slideIn 0.5s ease-out;
+}
+
+.stepContent h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.stepContent select, .stepContent input {
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.stepContent button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stepContent button:hover {
+  background-color: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.accessories {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.accessories label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preview {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.preview h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.productPreview {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border: 2px solid #333;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.productPreview:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step {
+    width: 80%;
+    text-align: center;
+  }
+
+  .accessories {
+    flex-direction: column;
+  }
+
+  .productPreview {
+    width: 150px;
+    height: 150px;
+  }
+}

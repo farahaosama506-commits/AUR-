@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "shop": "SHOP",
+    "explore": "EXPLORE",
+    "tech": "TECH",
+    "archive": "ARCHIVE"
+  },
+  "shop": {
+    "title": "SHOP",
+    "description": "Discover our complete range of products designed for exploration and adventure.",
+    "filter_all": "All",
+    "filter_urban": "Urban",
+    "filter_expedition": "Expedition",
+    "add_to_cart": "ADD TO CART",
+    "added": "added to cart!"
+  },
+  "hero": {
+    "title": "ELEVATE EVERY DESCENT",
+    "button": "DISCOVER THE COLLECTION"
+  },
+  "footer": {
+    "support": "SUPPORT",
+    "shipping": "Shipping & Returns",
+    "warranty": "Warranty",
+    "company": "COMPANY",
+    "privacy": "Privacy",
+    "contact": "Contact",
+    "ethics": "Ethics"
+  }
+}

@@ -1,0 +1,150 @@
+.section {
+  padding: var(--spacing-3xl) 0;
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+.heading {
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+  margin-bottom: var(--spacing-3xl);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2xl);
+}
+
+.card {
+  background-color: var(--surface-container);
+  transition: all 0.3s var(--transition-standard);
+  overflow: hidden;
+}
+
+.card:hover {
+  background-color: var(--surface-container-high);
+}
+
+.card.featured {
+  grid-column: 1 / 2;
+}
+
+.imageContainer {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background-color: var(--surface-container-low);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.imageContainer:hover .image {
+  transform: scale(1.05);
+}
+
+.content {
+  padding: var(--spacing-xl);
+}
+
+.category {
+  margin-bottom: var(--spacing-sm);
+}
+
+.category span {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+}
+
+.name {
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.price {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  color: var(--on-surface);
+  letter-spacing: 0.05em;
+}
+
+.actions {
+  padding: 0 var(--spacing-xl) var(--spacing-xl);
+}
+
+.viewButton {
+  width: 100%;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--outline-variant);
+  color: var(--on-surface-variant);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--transition-standard);
+}
+
+.viewButton:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  padding-bottom: calc(var(--spacing-md) + 4px);
+}
+
+/* Responsive Grid */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+  }
+
+  .card.featured {
+    grid-column: 1 / 3;
+  }
+
+  .card.featured .imageContainer {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card.featured {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+
+  .card.featured .imageContainer {
+    aspect-ratio: 1;
+    height: 100%;
+  }
+
+  .imageContainer {
+    aspect-ratio: 1;
+  }
+}
