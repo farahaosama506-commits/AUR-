@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "NIVIS GEAR - Alpine Equipment",
+  title: "AURÉ",
   description: "High-altitude performance gear engineered for alpine expeditions.",
 };
 

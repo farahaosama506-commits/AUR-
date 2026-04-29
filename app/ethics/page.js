@@ -21,31 +21,31 @@ export default function EthicsPage() {
   const principles = [
     {
       number: '01',
-      title: t('ethics.1.title', 'Material Transparency'),
+      title: t( 'Material Transparency'),
       description:
         'Full disclosure on our supply chain. Every material, from face fabrics to zippers, is traceable to its source. We publish an annual materials report with third-party verification.',
     },
     {
       number: '02',
-      title: t('ethics.2.title', 'Fair Labor Commitment'),
+      title: t('Fair Labor Commitment'),
       description:
         'Every Nivis product is produced in facilities that meet or exceed SA8000 certification standards. Regular unannounced audits ensure compliance with wage, safety, and working-hour requirements.',
     },
     {
       number: '03',
-      title: t('ethics.3.title', 'Repair, Not Replace'),
+      title: t('Repair, Not Replace'),
       description:
         'We design for serviceability. Our repair program keeps gear in the field and out of landfills. All products include a lifetime repair guarantee against manufacturing defects.',
     },
     {
       number: '04',
-      title: t('ethics.4.title', 'Carbon Accountability'),
+      title: t('Carbon Accountability'),
       description:
         'We measure and offset our entire operational footprint, including Scope 3 emissions from material production to end-of-life product disposal. Our goal: carbon-positive by 2028.',
     },
     {
       number: '05',
-      title: t('ethics.5.title', 'Community Investment'),
+      title: t('Community Investment'),
       description:
         '1% of every sale goes directly to organizations protecting alpine environments and supporting mountain communities hardest hit by climate change.',
     },
@@ -62,7 +62,7 @@ export default function EthicsPage() {
           <div className={styles.heroContent}>
             <span className={styles.overline}>OUR ETHICS</span>
             <h1 className={styles.title}>
-              {t('ethics.title', 'Built on Principle')}
+              {t( 'Built on Principle')}
             </h1>
             <p className={styles.subtitle}>
               {t(
@@ -94,7 +94,7 @@ export default function EthicsPage() {
         <div className={styles.container}>
           <div className={styles.reportContent}>
             <h2 className={styles.reportTitle}>
-              {t('ethics.report.title', 'Annual Ethics Report')}
+              {t('Annual Ethics Report')}
             </h2>
             <p className={styles.reportText}>
               Full transparency on our progress, setbacks, and goals.

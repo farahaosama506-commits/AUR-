@@ -26,9 +26,9 @@ export default function BrandPage() {
         <div className={styles.container}>
           <div className={styles.heroContent}>
             <span className={styles.overline}>EST. 2018</span>
-            <h1 className={styles.title}>NIVIS GEAR</h1>
+            <h1 className={styles.title}>AURÉ</h1>
             <p className={styles.subtitle}>
-              {t('brand.subtitle', 'Technical alpine protection engineered at elevation.')}
+              {t( 'Technical alpine protection engineered at elevation.')}
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function BrandPage() {
           <div className={styles.storyGrid}>
             <div className={styles.storyContent}>
               <h2 className={styles.heading}>
-                {t('brand.story.title', 'Born in the Alpine')}
+                {t( 'Born in the Alpine')}
               </h2>
               <p className={styles.paragraph}>
                 Our journey began above the treeline, where conventional gear failed and 
@@ -67,14 +67,15 @@ export default function BrandPage() {
       <section className={`${styles.section} ${styles.sectionAlt}`}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <h2>{t('brand.values.title', 'Our Values')}</h2>
-            <p>{t('brand.values.subtitle', 'What drives every stitch, seam, and decision.')}</p>
+            <h2>{t( 'Our Values')}</h2>
+            <p>{t('What drives every stitch, seam, and decision.')}</p>
           </div>
 
           <div className={styles.grid}>
             <div className={styles.card}>
               <span className={styles.cardNumber}>01</span>
-              <h3>{t('brand.values.1.title', 'Technical Integrity')}</h3>
+              <h3>{t(
+                 'Technical Integrity')}</h3>
               <p>
                 We engineer from first principles. Every product must solve a real 
                 problem for mountain professionals. No feature exists without purpose.
@@ -83,7 +84,7 @@ export default function BrandPage() {
 
             <div className={styles.card}>
               <span className={styles.cardNumber}>02</span>
-              <h3>{t('brand.values.2.title', 'Athlete-Driven Design')}</h3>
+              <h3>{t('Athlete-Driven Design')}</h3>
               <p>
                 Our products are co-developed with IFMGA guides, ski patrollers, and 
                 SAR teams who depend on their gear in consequential terrain.
@@ -92,7 +93,7 @@ export default function BrandPage() {
 
             <div className={styles.card}>
               <span className={styles.cardNumber}>03</span>
-              <h3>{t('brand.values.3.title', 'Alpine Durability')}</h3>
+              <h3>{t('Alpine Durability')}</h3>
               <p>
                 We build for the long haul. Our gear is designed to be repaired, not 
                 replaced. Extended lifecycles reduce waste and build lasting trust.

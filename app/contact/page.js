@@ -33,9 +33,9 @@ export default function ContactPage() {
         <div className={styles.container}>
           <div className={styles.heroContent}>
             <span className={styles.overline}>DIRECT LINE</span>
-            <h1 className={styles.title}>{t('contact.title', 'Contact Us')}</h1>
+            <h1 className={styles.title}>{t('contact us', 'Contact Us')}</h1>
             <p className={styles.subtitle}>
-              {t('contact.subtitle', 'Response within 24 hours from our Seattle workshop.')}
+              {t( 'Response within 24 hours from our Seattle workshop.')}
             </p>
           </div>
         </div>
@@ -50,33 +50,33 @@ export default function ContactPage() {
               <div className={styles.infoCard}>
                 <span className={styles.infoIcon}>✉</span>
                 <h3 className={styles.infoTitle}>
-                  {t('contact.email.title', 'Email')}
+                  {t( 'Email')}
                 </h3>
                 <p className={styles.infoText}>
-                  support@nivisgear.com<br />
-                  wholesale@nivisgear.com
+                  support@aur.com<br />
+                  wholesale@aur.com
                 </p>
               </div>
 
               <div className={styles.infoCard}>
                 <span className={styles.infoIcon}>⌂</span>
                 <h3 className={styles.infoTitle}>
-                  {t('contact.address.title', 'Workshop')}
+                  {t('Workshop')}
                 </h3>
                 <p className={styles.infoText}>
-                  214 Mercer Street<br />
-                  Seattle, WA 98109<br />
-                  United States
+                  Hama Street<br />
+                  Salamiah<br />
+                  Syria
                 </p>
               </div>
 
               <div className={styles.infoCard}>
                 <span className={styles.infoIcon}>☏</span>
                 <h3 className={styles.infoTitle}>
-                  {t('contact.phone.title', 'Phone')}
+                  {t('Phone')}
                 </h3>
                 <p className={styles.infoText}>
-                  +1 (206) 555-0147<br />
+                 +963 939197057<br />
                   Mon–Fri / 08:00–18:00 PST
                 </p>
               </div>
@@ -85,19 +85,19 @@ export default function ContactPage() {
             {/* Form Side */}
             <div className={styles.formSide}>
               <h2 className={styles.formTitle}>
-                {t('contact.form.title', 'Send a Message')}
+                {t( 'Send a Message')}
               </h2>
 
               {formState.submitted && !formState.error ? (
                 <div className={styles.successMessage}>
-                  <p>{t('contact.form.success', 'Message received. We will respond within 24 hours.')}</p>
+                  <p>{t('Message received. We will respond within 24 hours.')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className={styles.form}>
                   <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                       <label className={styles.label} htmlFor="name">
-                        {t('contact.form.name', 'Name')}
+                        {t( 'Name')}
                       </label>
                       <input
                         type="text"
@@ -108,7 +108,7 @@ export default function ContactPage() {
                     </div>
                     <div className={styles.formGroup}>
                       <label className={styles.label} htmlFor="email">
-                        {t('contact.form.email', 'Email')}
+                        {t( 'Email')}
                       </label>
                       <input
                         type="email"
@@ -121,7 +121,7 @@ export default function ContactPage() {
 
                   <div className={styles.formGroup}>
                     <label className={styles.label} htmlFor="subject">
-                      {t('contact.form.subject', 'Subject')}
+                      {t('Subject')}
                     </label>
                     <select id="subject" className={styles.select}>
                       <option value="general">General Inquiry</option>
@@ -133,7 +133,7 @@ export default function ContactPage() {
 
                   <div className={styles.formGroup}>
                     <label className={styles.label} htmlFor="message">
-                      {t('contact.form.message', 'Message')}
+                      {t('Message')}
                     </label>
                     <textarea
                       id="message"
@@ -144,7 +144,7 @@ export default function ContactPage() {
                   </div>
 
                   <button type="submit" className={styles.submitButton}>
-                    {t('contact.form.send', 'Send Message')}
+                    {t( 'Send Message')}
                     <span className={styles.arrow}>→</span>
                   </button>
                 </form>
