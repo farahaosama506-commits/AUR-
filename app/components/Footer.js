@@ -23,26 +23,26 @@ export default function Footer() {
         </div>
 
         <div className={styles.column}>
-          <h4>{t('footer.support')}</h4>
+          <h4>{t("support")}</h4>
           <ul>
-            <li><a href="#shipping">{t('footer.shipping')}</a></li>
-            <li><a href="#warranty">{t('footer.warranty')}</a></li>
-            <li><a href="#care">CARE INSTRUCTIONS</a></li>
+            <li><a href="#shipping">{t("shipping")}</a></li>
+            <li><a href="#warranty">{t("warranty")}</a></li>
+            <li><a href="#care">{t("care")}</a></li>
           </ul>
         </div>
 
         <div className={styles.column}>
-          <h4>{t('footer.company')}</h4>
+          <h4>{t("company")}</h4>
           <ul>
             <li><a href="/brand">BRAND</a></li>
-            <li><a href="/contact">{t('footer.contact')}</a></li>
-            <li><a href="/ethics">{t('footer.ethics')}</a></li>
+            <li><a href="/contact">{t("contact")}</a></li>
+            <li><a href="/ethics">{t("ethics")}</a></li>
           </ul>
         </div>
 
         <div className={styles.column}>
           <h4>COORDINATES</h4>
-          <p>47.686°N, 162.275°W<br/>SEATTLE, WA / USA</p>
+          <p>47.686°N, 162.275°W<br/>SALAMIAH, WA / SY</p>
         </div>
       </div>
 

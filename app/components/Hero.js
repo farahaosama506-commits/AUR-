@@ -27,14 +27,14 @@ export default function Hero() {
     >
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 className={styles.title}>{t('hero.title')}</h1>
+          <h1 className={styles.title}>{t("WELCOME")}</h1>
           <p className={styles.subtitle}>Engineered for alpine expeditions</p>
           <div className={styles.ctaContainer}>
             <Link href="/shop" className={styles.cta}>
               SHOP NOW
             </Link>
             <button className={styles.secondaryCta} onClick={scrollToProducts}>
-              {t('hero.button')}
+              {t("explore")}
             </button>
           </div>
         </div>
