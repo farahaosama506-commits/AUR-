@@ -14,8 +14,8 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.column}>
-          <h4>NIVIS GEAR</h4>
-          <p>Technical alpine protection engineered at elevation.</p>
+          <h4>AURÉ</h4>
+          <p>Shop quickly with the most beautiful international brands.</p>
           <div className={styles.social}>
             <button>@</button>
             <button>→</button>

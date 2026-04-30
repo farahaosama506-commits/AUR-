@@ -8,31 +8,24 @@ import styles from './explore.module.css';
 const stories = [
   {
     id: 1,
-    title: "Alpine Ascent: The Matterhorn",
+    title: "A collection of stylish olive-green t-shirts",
     date: "March 15, 2025",
-    description: "Our team conquered the iconic peak using Nivis gear in -25°C conditions.",
-    image: "https://picsum.photos/id/15/800/500" 
+    description: "We have displayed the largest collection of t-shirts in the store with a 50% discount..",
+    image: "/images/explore/e1.jpg" 
   },
   {
     id: 2,
-    title: "Backcountry Powder Days",
+    title: "Exclusive NIKE shoes",
     date: "February 28, 2025",
-    description: "Deep snow and steep lines in the British Columbia backcountry.",
-    image: "https://images.pexels.com/photos/848618/pexels-photo-848618.jpeg?auto=compress&cs=tinysrgb&w=800"
+    description: "Get the largest collection of Nike brand shoes at a competitive price.",
+    image: "/images/explore/e2.jpg"
   },
   {
     id: 3,
-    title: "The Perfect Storm Test",
+    title: "Time Event",
     date: "January 10, 2025",
-    description: "Testing the Protego Pro Shell in hurricane-force winds on Mount Washington.",
-    image: "https://images.pexels.com/photos/1191710/pexels-photo-1191710.jpeg?auto=compress&cs=tinysrgb&w=800"
-  },
-  {
-    id: 4,
-    title: "Local Hero: Ski Patrol Edition",
-    date: "December 5, 2024",
-    description: "Meet the patrol team relying on Nivis gear for their daily rescues.",
-    image: "https://images.pexels.com/photos/1752757/pexels-photo-1752757.jpeg?auto=compress&cs=tinysrgb&w=800"
+    description: "We have expanded to showcase the most luxurious and sophisticated watches..",
+    image: "/images/explore/e3.jpg"
   }
 ];
 
