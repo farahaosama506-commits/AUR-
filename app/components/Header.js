@@ -51,9 +51,9 @@ export default function Header() {
   };
 
   const navItems = [
-    { href: '/shop', label: 'nav.shop' },
-    { href: '/explore', label: 'nav.explore' },
-    { href: '/archive', label: 'nav.archive' }
+    { href: '/shop', label: 'shop' },
+    { href: '/explore', label: 'explore' },
+    { href: '/archive', label: 'archive' }
   ];
 
   if (!isLoaded) {

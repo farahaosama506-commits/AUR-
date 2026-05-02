@@ -1,25 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { LanguageProvider } from "@/lib/LanguageContext";
+import { Inter } from 'next/font/google';
+import { LanguageProvider } from '@/lib/LanguageContext';
+import './globals.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata = {
-  title: "AURÉ",
-  description: "High-altitude performance gear engineered for alpine expeditions.",
+  title: 'AURÉ',
+  description: 'Discover your style with AURÉ',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={inter.className}>
       <body>
         <LanguageProvider>
           {children}
