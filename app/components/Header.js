@@ -53,7 +53,6 @@ export default function Header() {
   const navItems = [
     { href: '/shop', label: 'nav.shop' },
     { href: '/explore', label: 'nav.explore' },
-    { href: '/tech', label: 'nav.tech' },
     { href: '/archive', label: 'nav.archive' }
   ];
 
