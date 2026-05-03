@@ -66,10 +66,9 @@ export default function ProductGrid() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: '-100px' }}
         >
-          <h2 className={styles.heading}>ENGINEERED SYSTEMS</h2>
+          <h2 className={styles.heading}>Best offers</h2>
           <p className={styles.subtitle}>
-            High-altitude performance requires gear that sits as a second skin. Our latest shells are tested in the most demanding alpine conditions.
-          </p>
+            We offer you the best deals you can get from global brands in a complete package.    </p>
         </motion.div>
 
         <motion.div
