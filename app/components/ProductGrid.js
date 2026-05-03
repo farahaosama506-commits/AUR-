@@ -6,28 +6,28 @@ import styles from './ProductGrid.module.css';
 const products = [
   {
     id: 1,
-    name: 'PROTECTO SKI JACKET',
+    name: '1',
     price: '$650.00',
     image: 'https://picsum.photos/id/20/400/500',  // منظر جبلي
     colorCount: 3
   },
   {
     id: 2,
-    name: 'PROTECTO SHELL',
+    name: '2',
     price: '$550.00',
     image: 'https://picsum.photos/id/29/400/500',  // طبيعة ثلجية
     colorCount: 4
   },
   {
     id: 3,
-    name: 'TENDO JACKET',
+    name: '3',
     price: '$450.00',
     image: 'https://picsum.photos/id/35/400/500',  // منظر جبلي آخر
     colorCount: 3
   },
   {
     id: 4,
-    name: 'EVERYDAY PUFFY',
+    name: '4',
     price: '$325.00',
     image: 'https://picsum.photos/id/46/400/500',  // طبيعة شتوية
     colorCount: 3

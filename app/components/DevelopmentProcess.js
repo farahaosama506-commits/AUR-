@@ -7,22 +7,22 @@ const phases = [
   {
     id: 1,
     number: '01',
-    title: 'MATERIAL SYNTHESIS',
-    description: 'Developing custom crossweave membrane structures with 20+ layer stack-ups emphasizing breathability ratios.',
+    title: '1',
+    description: '11.',
     image: 'https://picsum.photos/id/96/400/300'  // مختبر/مواد
   },
   {
     id: 2,
     number: '02',
-    title: 'HYDROSTATIC TESTING',
-    description: 'Subjecting seams to extreme pressure in 100% moisture loaded alpine chambers.',
+    title: '2',
+    description: '22.',
     image: 'https://picsum.photos/id/32/400/300'  // اختبارات ماء
   },
   {
     id: 3,
     number: '03',
-    title: 'FIELD EXPEDITION',
-    description: 'Real-world testing for professionals under in extreme mountain conditions.',
+    title: '3',
+    description: '33.',
     image: 'https://picsum.photos/id/104/400/300'  // متسلقين جبال
   }
 ];
@@ -60,9 +60,9 @@ export default function DevelopmentProcess() {
           viewport={{ once: true, margin: '-100px' }}
           className={styles.header}
         >
-          <h2>OUR DEVELOPMENT PROCESS</h2>
+          <h2>Classic and VIP</h2>
           <p>
-            Each piece undergoes 24 months of field testing in the Northern Cascades and Himalayas before it reaches production.
+      Get the rarest pieces in the Middle East
           </p>
         </motion.div>
 
