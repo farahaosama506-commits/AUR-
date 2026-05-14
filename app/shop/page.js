@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import useCartStore from '@/lib/store/cartStore';
+import useAuthStore from '@/lib/store/auth-store';
 import styles from './shop.module.css';
 
 const products = [
@@ -49,7 +52,7 @@ const products = [
   },
   {
     id: 6,
-    name: ' AURÉ STREET',
+    name: 'AURÉ STREET',
     category: 'DOM HILL',
     price: 130,
     image: '/images/shop/p5.jpg',
@@ -57,12 +60,18 @@ const products = [
   }
 ];
 
-const categories = ['All', 'ZARA', 'NIKE' , 'DOM HILL'];
+const categories = ['All', 'ZARA', 'NIKE', 'DOM HILL'];
 
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [cartMessage, setCartMessage] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
+  
+  const router = useRouter();
+  
+  // Zustand stores
+  const { addToCart } = useCartStore();
+  const { isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     if (selectedCategory === 'All') {
@@ -72,8 +81,16 @@ export default function Shop() {
     }
   }, [selectedCategory]);
 
-  const handleAddToCart = (productName) => {
-    setCartMessage(`${productName} added to cart!`);
+  const handleAddToCart = (product) => {
+    // إذا المستخدم مش مسجل دخول، نحوله على صفحة login
+    if (!isLoggedIn) {
+      router.push('/login');
+      return;
+    }
+    
+    // إذا مسجل دخول، نضيف المنتج للسلة
+    addToCart(product);
+    setCartMessage(`${product.name} added to cart!`);
     setTimeout(() => setCartMessage(''), 3000);
   };
 
@@ -159,7 +176,7 @@ export default function Shop() {
                 <div className={styles.price}>${product.price.toLocaleString('en-US')}</div>
                 <button
                   className={styles.addToCart}
-                  onClick={() => handleAddToCart(product.name)}
+                  onClick={() => handleAddToCart(product)}
                 >
                   ADD TO CART
                 </button>

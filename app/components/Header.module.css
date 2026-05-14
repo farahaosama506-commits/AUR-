@@ -172,3 +172,47 @@
     padding: 0 var(--spacing-lg);
   }
 }
+/* Cart Icon */
+.cartIcon {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--on-surface);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.cartIcon:hover {
+  color: var(--primary);
+}
+
+.cartBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--primary, #ff4444);
+  color: white;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Login Button */
+.loginButton {
+  background: none;
+  border: none;
+  color: var(--on-surface);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.loginButton:hover {
+  color: var(--primary);
+}

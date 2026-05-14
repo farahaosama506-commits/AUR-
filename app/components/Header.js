@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useTranslation } from '@/lib/useTranslation';
 import { useLanguage } from '@/lib/LanguageContext';
 import styles from './Header.module.css';
+import useCartStore from '@/lib/store/cartStore';
+import useAuthStore from '@/lib/store/auth-store';
 
 export default function Header() {
   const [isTransparent, setIsTransparent] = useState(true);
@@ -15,6 +17,8 @@ export default function Header() {
   const router = useRouter();
   const { t, isLoaded } = useTranslation();
   const { toggleLanguage, language } = useLanguage();
+  const { getItemCount } = useCartStore();
+  const { isLoggedIn, logout } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,11 +54,18 @@ export default function Header() {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
   const navItems = [
     { href: '/shop', label: 'shop' },
     { href: '/explore', label: 'explore' },
     { href: '/archive', label: 'archive' }
   ];
+  
+  const itemCount = getItemCount();
 
   if (!isLoaded) {
     return null;
@@ -66,6 +77,7 @@ export default function Header() {
         <Link href="/" className={styles.logo}>
           <h2>AURÉ</h2>
         </Link>
+        
         <nav className={styles.nav}>
           {navItems.map((item) => (
             <Link
@@ -77,7 +89,9 @@ export default function Header() {
             </Link>
           ))}
         </nav>
+        
         <div className={styles.actions}>
+          {/* Search */}
           <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
             {showSearchInput && (
               <input
@@ -113,12 +127,40 @@ export default function Header() {
               </button>
             )}
           </form>
-          <button className={styles.account}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-              <circle cx="10" cy="7" r="3" />
-              <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
-            </svg>
-          </button>
+
+          {/* Cart Icon */}
+          {isLoggedIn && (
+            <Link href="/cart" className={styles.cartIcon} title="Cart">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <path d="M3 1H1v2h2l1.6 8.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L19 5H5" />
+                <circle cx="7" cy="17" r="1.5" fill="currentColor" />
+                <circle cx="15" cy="17" r="1.5" fill="currentColor" />
+              </svg>
+              {itemCount > 0 && (
+                <span className={styles.cartBadge}>{itemCount}</span>
+              )}
+            </Link>
+          )}
+
+          {/* Account/Login Button */}
+          {isLoggedIn ? (
+            <button className={styles.account} onClick={handleLogout} title="Logout">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <circle cx="10" cy="7" r="3" />
+                <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
+              </svg>
+            </button>
+          ) : (
+            <Link href="/login" className={styles.loginButton} title="Login">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                <circle cx="10" cy="7" r="3" />
+                <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
+                <path d="M17 8l-3-3M17 8l-3 3" />
+              </svg>
+            </Link>
+          )}
+
+          {/* Language Toggle */}
           <button 
             className={styles.languageToggle} 
             onClick={toggleLanguage}
