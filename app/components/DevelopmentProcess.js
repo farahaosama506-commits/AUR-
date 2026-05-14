@@ -9,21 +9,21 @@ const phases = [
     number: '01',
     title: '1',
     description: '11.',
-    image: 'https://picsum.photos/id/96/400/300'  // مختبر/مواد
+    image: 'images/products/image5.jpg'  
   },
   {
     id: 2,
     number: '02',
     title: '2',
     description: '22.',
-    image: 'https://picsum.photos/id/32/400/300'  // اختبارات ماء
+    image: 'images/products/image6.jpg'  
   },
   {
     id: 3,
     number: '03',
     title: '3',
     description: '33.',
-    image: 'https://picsum.photos/id/104/400/300'  // متسلقين جبال
+    image: 'images/products/image7.jpg'  
   }
 ];
 

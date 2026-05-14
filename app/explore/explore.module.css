@@ -140,3 +140,48 @@
 .cta:hover {
   background: var(--primary-container);
 }
+
+/* أضف هدول للـ CSS الحالي */
+
+.category {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.cta {
+  padding: 0.6rem 1.5rem;
+  background: white;
+  color: black;
+  border: none;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}

@@ -1,35 +1,56 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import useCartStore from '@/lib/store/cartStore';
+import useAuthStore from '@/lib/store/auth-store';
 import styles from './explore.module.css';
 
-const stories = [
+const products = [
   {
-    id: 1,
-    title: "A collection of stylish olive-green t-shirts",
-    date: "March 15, 2025",
-    description: "We have displayed the largest collection of t-shirts in the store with a 50% discount..",
-    image: "/images/explore/e1.jpg" 
+    id: 101,
+    name: 'OLIVE GREEN T-SHIRT',
+    category: 'T-SHIRTS',
+    price: 45,
+    image: '/images/explore/e1.jpg',
+    description: 'Stylish olive-green t-shirt. 50% discount available.',
+    date: 'March 15, 2025'
   },
   {
-    id: 2,
-    title: "Exclusive NIKE shoes",
-    date: "February 28, 2025",
-    description: "Get the largest collection of Nike brand shoes at a competitive price.",
-    image: "/images/explore/e2.jpg"
+    id: 102,
+    name: 'NIKE EXCLUSIVE',
+    category: 'SHOES',
+    price: 120,
+    image: '/images/explore/e2.jpg',
+    description: 'Exclusive Nike shoes at competitive prices.',
+    date: 'February 28, 2025'
   },
   {
-    id: 3,
-    title: "Time Event",
-    date: "January 10, 2025",
-    description: "We have expanded to showcase the most luxurious and sophisticated watches..",
-    image: "/images/explore/e3.jpg"
+    id: 103,
+    name: 'LUXURY WATCH',
+    category: 'ACCESSORIES',
+    price: 250,
+    image: '/images/explore/e3.jpg',
+    description: 'Sophisticated luxury watches now available.',
+    date: 'January 10, 2025'
   }
 ];
 
 export default function Explore() {
+  const router = useRouter();
+  const { addToCart } = useCartStore();
+  const { isLoggedIn } = useAuthStore();
+
+  const handleAddToCart = (product) => {
+    if (!isLoggedIn) {
+      router.push('/login');
+      return;
+    }
+    addToCart(product);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -68,7 +89,7 @@ export default function Explore() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Join the community of explorers sharing their stories and discoveries from around the world.
+            Discover our exclusive collections and limited-time offers.
           </motion.p>
         </div>
 
@@ -78,16 +99,16 @@ export default function Explore() {
           initial="hidden"
           animate="visible"
         >
-          {stories.map((story) => (
+          {products.map((product) => (
             <motion.div
-              key={story.id}
+              key={product.id}
               className={styles.card}
               variants={itemVariants}
             >
               <div className={styles.imageContainer}>
                 <img
-                  src={story.image}
-                  alt={story.title}
+                  src={product.image}
+                  alt={product.name}
                   className={styles.image}
                   onError={(e) => {
                     e.target.src = '/images/placeholder.jpg';
@@ -95,10 +116,19 @@ export default function Explore() {
                 />
                 <div className={styles.overlay}>
                   <div className={styles.content}>
-                    <div className={styles.date}>{story.date}</div>
-                    <h3 className={styles.title}>{story.title}</h3>
-                    <p className={styles.description}>{story.description}</p>
-                    <button className={styles.cta}>READ STORY</button>
+                    <div className={styles.date}>{product.date}</div>
+                    <div className={styles.category}>{product.category}</div>
+                    <h3 className={styles.title}>{product.name}</h3>
+                    <p className={styles.description}>{product.description}</p>
+                    <div className={styles.priceRow}>
+                      <span className={styles.price}>${product.price}</span>
+                      <button 
+                        className={styles.cta}
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        ADD TO CART
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

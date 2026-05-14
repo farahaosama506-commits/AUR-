@@ -8,27 +8,27 @@ import styles from './archive.module.css';
 const archivedProducts = [
   {
     id: 1,
-    name: "First Gen Protego",
+    name: "Desert Explorer Jacket",
     price: "$350.00",
     status: "sold_out",
-    year: "2022",
-    image: "https://picsum.photos/id/48/400/500"
+    year: "2019",
+    image: "/images/archive/image.jpg"
   },
   {
     id: 2,
-    name: "Limited Edition Summit",
+    name: "Urban Trekker Boots",
     price: "$450.00",
     status: "sold_out",
     year: "2023",
-    image: "https://picsum.photos/id/58/400/500"
+    image: "/images/archive/image.jpg"
   },
   {
     id: 3,
-    name: "Glacier Pro Shell",
+    name: "Aurora Expedition Suit",
     price: "$400.00",
     status: "limited",
     year: "2024",
-    image: "https://picsum.photos/id/22/400/500"
+    image: "/images/archive/image.jpg"
   }
 ];
 

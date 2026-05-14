@@ -8,28 +8,28 @@ const products = [
     id: 1,
     name: '1',
     price: '$650.00',
-    image: 'https://picsum.photos/id/20/400/500',  // منظر جبلي
+    image: 'images/products/image1.jpg',  
     colorCount: 3
   },
   {
     id: 2,
     name: '2',
     price: '$550.00',
-    image: 'https://picsum.photos/id/29/400/500',  // طبيعة ثلجية
+    image: 'images/products/image2.jpg', 
     colorCount: 4
   },
   {
     id: 3,
     name: '3',
     price: '$450.00',
-    image: 'https://picsum.photos/id/35/400/500',  // منظر جبلي آخر
+    image: 'images/products/image3.jpg',  // منظر جبلي آخر
     colorCount: 3
   },
   {
     id: 4,
     name: '4',
     price: '$325.00',
-    image: 'https://picsum.photos/id/46/400/500',  // طبيعة شتوية
+    image: 'images/products/image4.jpg',  // طبيعة شتوية
     colorCount: 3
   }
 ];
