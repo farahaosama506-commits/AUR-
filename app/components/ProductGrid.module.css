@@ -148,3 +148,32 @@
     aspect-ratio: 1;
   }
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.imageContainer {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--surface-container);
+}
+
+.image {
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .content { padding: 0.75rem; }
+  .name { font-size: 0.85rem; }
+  .price { font-size: 0.9rem; }
+  .viewButton { padding: 0.6rem 1rem; font-size: 0.75rem; }
+}

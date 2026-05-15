@@ -7,24 +7,28 @@ import styles from './Newsletter.module.css';
 export default function Newsletter() {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      setEmail('');
-      setTimeout(() => setIsSubmitted(false), 3000);
-    }
+    if (!email || isLoading) return;
+    setIsLoading(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setIsSubmitted(true);
+    setEmail('');
+    setIsLoading(false);
+    setTimeout(() => setIsSubmitted(false), 3000);
   };
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.4 }}
           className={styles.content}
         >
           <h2>THE INTELLIST</h2>
@@ -32,10 +36,10 @@ export default function Newsletter() {
         </motion.div>
 
         <motion.form
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           onSubmit={handleSubmit}
           className={styles.form}
         >
@@ -46,15 +50,16 @@ export default function Newsletter() {
             onChange={(e) => setEmail(e.target.value)}
             required
             className={styles.input}
+            inputMode="email"
+            autoComplete="email"
           />
-          <button type="submit" className={styles.button}>
-            JOIN
+          <button type="submit" className={styles.button} disabled={isLoading}>
+            {isLoading ? '...' : 'JOIN'}
           </button>
           {isSubmitted && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               className={styles.message}
             >
               Thanks for subscribing!
