@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslation } from '@/lib/useTranslation';
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Brand.module.css';
 
@@ -28,7 +29,7 @@ export default function BrandPage() {
             <span className={styles.overline}>EST. 2018</span>
             <h1 className={styles.title}>AURÉ</h1>
             <p className={styles.subtitle}>
-              {t( 'Technical alpine protection engineered at elevation.')}
+              {t('brand.subtitle', 'Redefining fashion with timeless elegance and modern sophistication.')}
             </p>
           </div>
         </div>
@@ -40,24 +41,28 @@ export default function BrandPage() {
           <div className={styles.storyGrid}>
             <div className={styles.storyContent}>
               <h2 className={styles.heading}>
-                {t( 'Born in the Alpine')}
+                {t('brand.story.title', 'Crafted for Elegance')}
               </h2>
               <p className={styles.paragraph}>
-                Our journey began above the treeline, where conventional gear failed and 
-                the margin between success and failure is measured in millimeters. We 
-                set out to create equipment that mountain professionals could trust with 
-                their lives—no compromises, no marketing fluff.
+                Born from a passion for refined aesthetics, AURÉ emerged to bridge the gap 
+                between luxury and accessibility. Every stitch, every fabric, every silhouette 
+                is thoughtfully curated to empower individuals through style.
               </p>
               <p className={styles.paragraph}>
-                Every Nivis product is conceived, tested, and refined at our 
-                headquarters in Seattle, with field testing conducted from the North 
-                Cascades to the Alaska Range.
+                Our atelier draws inspiration from global fashion capitals—Milan, Paris, 
+                Tokyo—blending classic tailoring with contemporary trends. We believe 
+                that what you wear is an extension of who you are.
               </p>
             </div>
             <div className={styles.storyImage}>
-              <div className={styles.imagePlaceholder}>
-                <span>MOUNTAIN PROFILE</span>
-              </div>
+              <Image
+                src="/images/brand/logo.jpg"
+                alt="AURÉ Atelier - Fashion Design Studio"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={styles.image}
+                priority
+              />
             </div>
           </div>
         </div>
@@ -67,36 +72,37 @@ export default function BrandPage() {
       <section className={`${styles.section} ${styles.sectionAlt}`}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <h2>{t( 'Our Values')}</h2>
-            <p>{t('What drives every stitch, seam, and decision.')}</p>
+            <h2>{t('brand.values.title', 'Our Philosophy')}</h2>
+            <p>{t('brand.values.subtitle', 'The principles that guide every collection we create.')}</p>
           </div>
 
           <div className={styles.grid}>
             <div className={styles.card}>
               <span className={styles.cardNumber}>01</span>
-              <h3>{t(
-                 'Technical Integrity')}</h3>
+              <h3>{t('brand.values.1.title', 'Timeless Design')}</h3>
               <p>
-                We engineer from first principles. Every product must solve a real 
-                problem for mountain professionals. No feature exists without purpose.
+                We create pieces that transcend seasons and trends. Every garment is 
+                designed with intention—clean lines, premium fabrics, and impeccable 
+                tailoring that stands the test of time.
               </p>
             </div>
 
             <div className={styles.card}>
               <span className={styles.cardNumber}>02</span>
-              <h3>{t('Athlete-Driven Design')}</h3>
+              <h3>{t('brand.values.2.title', 'Artisanal Quality')}</h3>
               <p>
-                Our products are co-developed with IFMGA guides, ski patrollers, and 
-                SAR teams who depend on their gear in consequential terrain.
+                Our collections are crafted by skilled artisans who bring decades of 
+                expertise. From hand-stitched details to carefully sourced materials, 
+                quality is never compromised.
               </p>
             </div>
 
             <div className={styles.card}>
               <span className={styles.cardNumber}>03</span>
-              <h3>{t('Alpine Durability')}</h3>
+              <h3>{t('brand.values.3.title', 'Conscious Fashion')}</h3>
               <p>
-                We build for the long haul. Our gear is designed to be repaired, not 
-                replaced. Extended lifecycles reduce waste and build lasting trust.
+                We are committed to sustainable practices—ethical sourcing, reduced waste, 
+                and fair labor. Fashion should look good and do good, without compromise.
               </p>
             </div>
           </div>
@@ -108,16 +114,16 @@ export default function BrandPage() {
         <div className={styles.container}>
           <div className={styles.statsGrid}>
             <div className={styles.stat}>
-              <span className={styles.statNumber}>12,400m</span>
-              <span className={styles.statLabel}>Highest Field Test</span>
+              <span className={styles.statNumber}>50+</span>
+              <span className={styles.statLabel}>Global Brands</span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.statNumber}>47°N</span>
-              <span className={styles.statLabel}>Design Latitude</span>
+              <span className={styles.statNumber}>12K+</span>
+              <span className={styles.statLabel}>Happy Customers</span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.statNumber}>1,200+</span>
-              <span className={styles.statLabel}>Athlete Partnerships</span>
+              <span className={styles.statNumber}>24/7</span>
+              <span className={styles.statLabel}>Style Support</span>
             </div>
           </div>
         </div>

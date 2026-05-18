@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import useCartStore from '@/lib/store/cartStore';
@@ -65,82 +65,47 @@ const categories = ['All', 'ZARA', 'NIKE', 'DOM HILL'];
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [cartMessage, setCartMessage] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(products);
   
   const router = useRouter();
-  
-  // Zustand stores
   const { addToCart } = useCartStore();
   const { isLoggedIn } = useAuthStore();
 
-  useEffect(() => {
-    if (selectedCategory === 'All') {
-      setFilteredProducts(products);
-    } else {
-      setFilteredProducts(products.filter(product => product.category === selectedCategory));
-    }
-  }, [selectedCategory]);
+  // تصفية المنتجات مباشرة بدون useEffect
+  const filteredProducts = selectedCategory === 'All' 
+    ? products 
+    : products.filter(product => product.category === selectedCategory);
 
-  const handleAddToCart = (product) => {
-    // إذا المستخدم مش مسجل دخول، نحوله على صفحة login
+  const handleAddToCart = useCallback((product) => {
     if (!isLoggedIn) {
       router.push('/login');
       return;
     }
     
-    // إذا مسجل دخول، نضيف المنتج للسلة
     addToCart(product);
     setCartMessage(`${product.name} added to cart!`);
     setTimeout(() => setCartMessage(''), 3000);
-  };
+  }, [isLoggedIn, router, addToCart]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
+  const handleCategoryChange = useCallback((e) => {
+    setSelectedCategory(e.target.value);
+  }, []);
 
   return (
     <div className={styles.page}>
       <Header />
       <main className={styles.main}>
         <div className={styles.header}>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            SHOP
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <h1 className={styles.title}>SHOP</h1>
+          <p className={styles.description}>
             Discover our complete range of AURÉ products.
-          </motion.p>
+          </p>
         </div>
 
         <div className={styles.controls}>
           <select
             className={styles.filter}
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={handleCategoryChange}
           >
             {categories.map(category => (
               <option key={category} value={category}>{category}</option>
@@ -148,32 +113,23 @@ export default function Shop() {
           </select>
         </div>
 
-        <motion.div
-          className={styles.grid}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className={styles.grid}>
           {filteredProducts.map((product) => (
-            <motion.div
-              key={product.id}
-              className={styles.card}
-              variants={itemVariants}
-            >
+            <div key={product.id} className={styles.card}>
               <div className={styles.imageContainer}>
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   className={styles.image}
-                  onError={(e) => {
-                    e.target.src = '/images/placeholder.jpg';
-                  }}
+                  loading="lazy"
                 />
               </div>
               <div className={styles.content}>
                 <div className={styles.category}>{product.category}</div>
                 <h3 className={styles.name}>{product.name}</h3>
-                <div className={styles.price}>${product.price.toLocaleString('en-US')}</div>
+                <div className={styles.price}>${product.price}</div>
                 <button
                   className={styles.addToCart}
                   onClick={() => handleAddToCart(product)}
@@ -181,19 +137,14 @@ export default function Shop() {
                   ADD TO CART
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {cartMessage && (
-          <motion.div
-            className={styles.cartMessage}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-          >
+          <div className={styles.cartMessage}>
             {cartMessage}
-          </motion.div>
+          </div>
         )}
       </main>
       <Footer />
