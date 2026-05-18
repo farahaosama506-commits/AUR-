@@ -1,41 +1,63 @@
-'use client';
-
 import Link from 'next/link';
-import styles from './not-found.module.css';
 
 export default function NotFound() {
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>404</h1>
-          <h2 className={styles.subtitle}>PAGE NOT FOUND</h2>
-          <p className={styles.description}>
-            The page you're looking for doesn't exist or has been moved.
-          </p>
-          <div className={styles.actions}>
-            <Link href="/" className={styles.primaryButton}>
-              GO HOME
-            </Link>
-            <Link href="/shop" className={styles.secondaryButton}>
-              SHOP NOW
-            </Link>
-          </div>
-        </div>
-        <div className={styles.visual}>
-          <div className={styles.mountain}>
-            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 300L100 150L200 250L300 100L400 200L400 300H0Z" fill="url(#gradient)" />
-              <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{stopColor: 'var(--primary)', stopOpacity: 0.3}} />
-                  <stop offset="100%" style={{stopColor: 'var(--primary-container)', stopOpacity: 0.1}} />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      background: 'var(--background, #f5f5f5)',
+      textAlign: 'center',
+      padding: '2rem',
+      fontFamily: 'var(--font-inter), sans-serif',
+    }}>
+      <h1 style={{
+        fontSize: 'clamp(4rem, 10vw, 8rem)',
+        fontWeight: 700,
+        marginBottom: '0.5rem',
+        color: 'var(--on-surface, #000)',
+        lineHeight: 1,
+      }}>
+        404
+      </h1>
+      <h2 style={{
+        fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+        fontWeight: 500,
+        marginBottom: '1.5rem',
+        color: 'var(--on-surface-variant, #666)',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+      }}>
+        Page Not Found
+      </h2>
+      <p style={{
+        fontSize: '1rem',
+        color: 'var(--on-surface-variant, #888)',
+        marginBottom: '2rem',
+        maxWidth: '400px',
+        lineHeight: 1.6,
+      }}>
+        The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+      </p>
+      <Link
+        href="/"
+        style={{
+          display: 'inline-block',
+          padding: '0.8rem 2rem',
+          background: 'var(--on-surface, #000)',
+          color: 'var(--surface, #fff)',
+          textDecoration: 'none',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          fontSize: '0.9rem',
+          fontWeight: 600,
+          transition: 'background 0.2s',
+        }}
+      >
+        Back to Home
+      </Link>
     </div>
   );
 }
