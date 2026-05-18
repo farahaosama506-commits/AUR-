@@ -222,9 +222,9 @@
   background-color: var(--surface);
   border: 1px solid var(--outline-variant);
   color: var(--on-surface);
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: 0.4rem 0.8rem;
   font-family: var(--font-label);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
