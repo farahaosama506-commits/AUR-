@@ -1,5 +1,9 @@
+'use client';
+
+import { useEffect } from 'react';
 import { Inter } from 'next/font/google';
 import { LanguageProvider } from '@/lib/LanguageContext';
+import useAuthStore from '@/lib/store/auth-store';
 import './globals.css';
 
 const inter = Inter({ 
@@ -9,21 +13,14 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-// metadata بدون viewport
-export const metadata = {
-  title: 'AURÉ - Fashion Store',
-  description: 'Discover your style with AURÉ',
-};
-
-// viewport منفصل
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: '#000000',
-};
-
 export default function RootLayout({ children }) {
+  const { checkAuth } = useAuthStore();
+
+  // Check auth on page load
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <html lang="en" className={inter.variable}>
       <body>
