@@ -16,7 +16,6 @@ const inter = Inter({
 export default function RootLayout({ children }) {
   const { checkAuth } = useAuthStore();
 
-  // Check auth on page load
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);

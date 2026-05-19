@@ -1,36 +1,41 @@
-import dbConnect from '@/lib/db';
-import Product from '@/lib/models/Product';
+import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 // GET - جلب كل المنتجات
 export async function GET(request) {
   try {
-    await dbConnect();
-    
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
-    
-    let query = {};
+
+    let query = supabase.from('products').select('*').order('created_at', { ascending: false });
+
     if (category && category !== 'All') {
-      query.category = category;
+      query = query.eq('category', category);
     }
-    
-    const products = await Product.find(query).sort({ createdAt: -1 });
-    
-    return NextResponse.json({ success: true, data: products });
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, data });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
 
-// POST - إضافة منتج جديد
+// POST - إضافة منتج جديد (للـ Admin)
 export async function POST(request) {
   try {
-    await dbConnect();
     const body = await request.json();
-    const product = await Product.create(body);
     
-    return NextResponse.json({ success: true, data: product }, { status: 201 });
+    const { data, error } = await supabase
+      .from('products')
+      .insert([body])
+      .select();
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, data: data[0] }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
