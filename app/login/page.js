@@ -78,15 +78,15 @@ export default function LoginPage() {
           <button type="submit" className={styles.submit} disabled={isLoading}>
             {isLoading ? 'LOGGING IN...' : 'LOGIN'}
           </button>
+          <p className={styles.forgotPassword}>
+  <Link href="/forgot-password">Forgot your password?</Link>
+</p>
         </form>
         
         <p className={styles.switch}>
           Don't have an account?{' '}
           <Link href="/register">Sign Up</Link>
         </p>
-        <p className={styles.forgotPassword}>
-  <Link href="/forgot-password">Forgot your password?</Link>
-</p>
       </div>
     </div>
   );
