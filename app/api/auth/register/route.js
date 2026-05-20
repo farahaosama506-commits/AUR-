@@ -3,10 +3,8 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
-    const body = await request.json();
-    const { username, email, password } = body;
+    const { username, email, password } = await request.json();
 
-    // تحقق من الحقول
     if (!username || !email || !password) {
       return NextResponse.json(
         { success: false, error: 'All fields are required' },
@@ -14,52 +12,31 @@ export async function POST(request) {
       );
     }
 
-    // تسجيل في Supabase
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: { username } // تخزين username في metadata
-      }
+      options: { data: { username } },
     });
 
     if (error) {
       return NextResponse.json(
         { success: false, error: error.message },
-        { status: 422 }
+        { status: 400 }
       );
-    }
-
-    // إضافة المستخدم لجدول users
-    if (data.user) {
-      const { error: dbError } = await supabase
-        .from('users')
-        .insert([{
-          id: data.user.id,
-          username,
-          email,
-          role: 'user'
-        }]);
-
-      if (dbError) {
-        console.error('DB insert error:', dbError);
-      }
     }
 
     return NextResponse.json({
       success: true,
       user: {
         id: data.user?.id,
+        email: data.user?.email,
         username,
-        email,
-        role: 'user'
-      }
-    });
+      },
+    }, { status: 201 });
 
   } catch (error) {
-    console.error('Register error:', error);
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: 'Internal server error' },
       { status: 500 }
     );
   }

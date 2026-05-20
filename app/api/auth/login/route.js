@@ -1,16 +1,9 @@
-import dbConnect from '@/lib/db';
-import User from '@/lib/models/User';
-import jwt from 'jsonwebtoken';
+import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-change-me';
 
 export async function POST(request) {
   try {
-    await dbConnect();
-
-    const body = await request.json();
-    const { email, password } = body;
+    const { email, password } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -19,48 +12,30 @@ export async function POST(request) {
       );
     }
 
-    // Find user (نختار الباسورد يدوياً)
-    const user = await User.findOne({ email }).select('+password');
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-    if (!user) {
+    if (error) {
       return NextResponse.json(
         { success: false, error: 'Invalid email or password' },
         { status: 401 }
       );
     }
-
-    // Compare password
-    const isMatch = await user.comparePassword(password);
-
-    if (!isMatch) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    // Generate token
-    const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
 
     return NextResponse.json({
       success: true,
-      message: 'Login successful',
-      token,
       user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
+        id: data.user?.id,
+        email: data.user?.email,
+        username: data.user?.user_metadata?.username,
       },
     });
+
   } catch (error) {
-    console.error('Login Error:', error);
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: 'Internal server error' },
       { status: 500 }
     );
   }

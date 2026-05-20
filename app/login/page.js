@@ -84,6 +84,9 @@ export default function LoginPage() {
           Don't have an account?{' '}
           <Link href="/register">Sign Up</Link>
         </p>
+        <p className={styles.forgotPassword}>
+  <Link href="/forgot-password">Forgot your password?</Link>
+</p>
       </div>
     </div>
   );
