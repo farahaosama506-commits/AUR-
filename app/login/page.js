@@ -78,9 +78,23 @@ export default function LoginPage() {
           <button type="submit" className={styles.submit} disabled={isLoading}>
             {isLoading ? 'LOGGING IN...' : 'LOGIN'}
           </button>
-          <p className={styles.forgotPassword}>
-  <Link href="/forgot-password">Forgot your password?</Link>
-</p>
+
+
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
+  <a 
+    href="/forgot-password" 
+    style={{ 
+      color: '#666', 
+      fontSize: '14px',
+      textDecoration: 'underline',
+      padding: '12px 0',
+      display: 'inline-block'
+    }}
+  >
+    Forgot your password?
+  </a>
+</div>
+
         </form>
         
         <p className={styles.switch}>
