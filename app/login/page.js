@@ -15,7 +15,6 @@ export default function LoginPage() {
     password: '',
   });
 
-  // إذا مسجل دخول بالفعل، حوله للرئيسية
   useEffect(() => {
     if (isLoggedIn) {
       router.push('/');
@@ -24,9 +23,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     const success = await login(formData.email, formData.password);
-    
     if (success) {
       router.push('/');
     }
@@ -78,24 +75,22 @@ export default function LoginPage() {
           <button type="submit" className={styles.submit} disabled={isLoading}>
             {isLoading ? 'LOGGING IN...' : 'LOGIN'}
           </button>
-
-
-        <div style={{ textAlign: 'center', marginTop: '16px' }}>
-  <a 
-    href="/forgot-password" 
-    style={{ 
-      color: '#666', 
-      fontSize: '14px',
-      textDecoration: 'underline',
-      padding: '12px 0',
-      display: 'inline-block'
-    }}
-  >
-    Forgot your password?
-  </a>
-</div>
-
         </form>
+        
+        {/* Forgot Password Link */}
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <a 
+            href="/forgot-password"
+            style={{ 
+              color: '#666', 
+              fontSize: '14px', 
+              textDecoration: 'underline',
+              cursor: 'pointer'
+            }}
+          >
+            Forgot your password?
+          </a>
+        </div>
         
         <p className={styles.switch}>
           Don't have an account?{' '}
