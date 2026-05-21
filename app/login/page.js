@@ -79,18 +79,17 @@ export default function LoginPage() {
         
         {/* Forgot Password Link */}
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <a 
-            href="/forgot-password"
-            style={{ 
-              color: '#666', 
-              fontSize: '14px', 
-              textDecoration: 'underline',
-              cursor: 'pointer'
-            }}
-          >
-            Forgot your password?
-          </a>
-        </div>
+            <Link 
+              href="/forgot-password"
+              style={{ 
+                color: '#666', 
+                fontSize: '14px', 
+                textDecoration: 'underline'
+              }}
+            >
+              Forgot your password?
+            </Link>
+          </div>
         
         <p className={styles.switch}>
           Don't have an account?{' '}
