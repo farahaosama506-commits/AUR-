@@ -317,3 +317,40 @@
     font-size: 0.7rem;
   }
 }
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #d32f2f;
+}
+
+.error button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--on-surface);
+  color: var(--surface);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.noProducts {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--on-surface-variant);
+  grid-column: 1 / -1;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
