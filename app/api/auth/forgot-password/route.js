@@ -1,24 +1,24 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
-
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+import { forgotPasswordSchema, formatZodError } from '@/lib/validation';
 
 export async function POST(request) {
   try {
-    const { email } = await request.json();
+    const body = await request.json();
 
-    if (!email) {
+    // ✅ Zod Validation
+    const validation = forgotPasswordSchema.safeParse(body);
+    if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: 'Email is required' },
+        { success: false, error: formatZodError(validation.error) },
         { status: 400 }
       );
     }
 
-    const { error } = await supabaseAdmin.auth.resetPasswordForEmail(email, {
-      redirectTo: 'http://localhost:3000/reset-password',
+    const { email } = validation.data;
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${request.headers.get('origin') || 'http://localhost:3000'}/reset-password`,
     });
 
     if (error) {
@@ -30,12 +30,12 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Password reset email sent!',
+      message: 'Reset code sent to your email',
     });
 
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: 'Internal server error' },
       { status: 500 }
     );
   }
