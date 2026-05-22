@@ -1,27 +1,34 @@
 import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
+import { registerSchema, formatZodError } from '@/lib/validation';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request) {
+  // Rate Limiting
+  const ip = request.headers.get('x-forwarded-for') || 'unknown';
+  const { allowed, retryAfter } = checkRateLimit(`register:${ip}`, 3, 60000);
+  
+  if (!allowed) {
+    return NextResponse.json(
+      { success: false, error: `Too many attempts. Try again in ${retryAfter}s` },
+      { status: 429 }
+    );
+  }
+
   try {
     const body = await request.json();
-    const { username, email, password } = body;
 
-    // Validation بسيط (بدون Zod مؤقتاً)
-    if (!username || !email || !password) {
+    // Zod Validation
+    const result = registerSchema.safeParse(body);
+    if (!result.success) {
       return NextResponse.json(
-        { success: false, error: 'All fields are required' },
+        { success: false, error: formatZodError(result.error) },
         { status: 400 }
       );
     }
 
-    if (password.length < 6) {
-      return NextResponse.json(
-        { success: false, error: 'Password must be at least 6 characters' },
-        { status: 400 }
-      );
-    }
+    const { username, email, password } = result.data;
 
-    // تسجيل في Supabase
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
