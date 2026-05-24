@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f8f9fa;
+  color: #1a1a1a;
+}
+
+:root {
+  --admin-primary: #1a1a1a;
+  --admin-surface: #ffffff;
+  --admin-border: #000001;
+  --admin-text: #1a1a1a;
+  --admin-text-secondary: #6b7280;
+  --admin-danger: #dc2626;
+  --admin-success: #16a34a;
+}
+/* تحسينات عامة للـ admin */
+a:hover {
+  opacity: 0.85;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // GET منتج واحد
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     
     const { data, error } = await supabase
       .from('products')
@@ -26,21 +26,22 @@ export async function GET(request, { params }) {
 // PUT تعديل منتج
 export async function PUT(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     
     const { data, error } = await supabase
       .from('products')
       .update(body)
       .eq('id', id)
-      .select();
+      .select()
+      .single();
 
     if (error) throw error;
-    if (!data || data.length === 0) {
+    if (!data) {
       return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true, data: data[0] });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
@@ -49,7 +50,7 @@ export async function PUT(request, { params }) {
 // DELETE حذف منتج
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     
     const { error } = await supabase
       .from('products')
