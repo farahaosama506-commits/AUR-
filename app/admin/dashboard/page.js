@@ -27,13 +27,21 @@ export default function AdminDashboard() {
     loadStats();
   }, []);
 
-       const loadStats = async () => {
+   const loadStats = async () => {
   try {
-    const response = await fetch('/api/admin/stats');
-    const data = await response.json();
+    const [statsRes, usersRes] = await Promise.all([
+      fetch('/api/admin/stats'),
+      fetch('/api/admin/users'),
+    ]);
 
-    if (data.success) {
-      setStats(data.stats);
+    const statsData = await statsRes.json();
+    const usersData = await usersRes.json();
+
+    if (statsData.success) {
+      setStats({
+        ...statsData.stats,
+        users: usersData.users?.length || 0,
+      });
     }
   } catch (error) {
     console.error('Failed to load stats');
@@ -76,6 +84,7 @@ export default function AdminDashboard() {
             { key: 'users', label: '👥 Users', href: '/admin/dashboard/users' },
             { key: 'orders', label: '📋 Orders', href: '/admin/dashboard/orders' },
             { key: 'settings', label: '⚙️ Settings', href: '/admin/dashboard/settings' },
+  
           ].map((item) => (
             <Link
               key={item.key}

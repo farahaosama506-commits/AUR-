@@ -1,56 +1,65 @@
 import Stripe from 'stripe';
+import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
-    const { items } = await request.json();
+    const body = await request.json();
+    const { items, userEmail, userId } = body;
 
     if (!items || items.length === 0) {
-      return NextResponse.json(
-        { success: false, error: 'Cart is empty' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Cart is empty' }, { status: 400 });
     }
 
-    // تجهيز line_items لـ Stripe
+    const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // 1. إنشاء الطلب في Supabase
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .insert([{
+        user_id: userId || null,
+        user_email: userEmail || 'guest@example.com',
+        items: items,
+        total_amount: totalAmount,
+        status: 'pending',
+      }])
+      .select()
+      .single();
+
+    if (orderError) {
+      console.error('Order error:', orderError);
+      // كمل حتى لو فشل الطلب - المهم الدفع يشتغل
+    }
+
+    // 2. إنشاء جلسة Stripe
     const line_items = items.map((item) => ({
       price_data: {
         currency: 'usd',
         product_data: {
           name: item.name,
-          description: item.description || item.category,
-          images: item.image ? [`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}${item.image}`] : [],
         },
-        unit_amount: Math.round(item.price * 100), // Stripe يستخدم السنتات
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     }));
 
-    // إنشاء Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/cart?canceled=true`,
-      metadata: {
-        source: 'aure_store',
-      },
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/cart`,
     });
 
     return NextResponse.json({
       success: true,
       url: session.url,
-      sessionId: session.id,
     });
 
   } catch (error) {
-    console.error('Stripe Checkout Error:', error);
-    return NextResponse.json(
-      { success: false, error: error.message || 'Payment failed' },
-      { status: 500 }
-    );
+    console.error('Checkout error:', error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

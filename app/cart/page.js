@@ -10,47 +10,49 @@ import styles from './cart.module.css';
 export default function CartPage() {
   const router = useRouter();
   const { items, removeFromCart, updateQuantity, getTotal, clearCart } = useCartStore();
-  const { isLoggedIn } = useAuthStore();
+  const { isLoggedIn , user } = useAuthStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState('');
 
   const total = typeof getTotal === 'function' ? getTotal() : items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = async () => {
-    if (!isLoggedIn) {
-      router.push('/login');
-      return;
+  if (!isLoggedIn) {
+    router.push('/login');
+    return;
+  }
+
+  if (items.length === 0) {
+    setError('Your cart is empty');
+    return;
+  }
+
+  setIsCheckingOut(true);
+  setError('');
+
+  try {
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items,
+        userEmail: user?.email || '',
+        userId: user?.id || '',
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Checkout failed');
     }
 
-    if (items.length === 0) {
-      setError('Your cart is empty');
-      return;
-    }
-
-    setIsCheckingOut(true);
-    setError('');
-
-    try {
-      // 1. إنشاء Checkout Session عبر API Route
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items }),
-      });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'Checkout failed');
-      }
-
-      // 2. تحويل المستخدم لصفحة دفع Stripe
-      window.location.href = data.url;
-    } catch (err) {
-      setError(err.message);
-      setIsCheckingOut(false);
-    }
-  };
+    window.location.href = data.url;
+  } catch (err) {
+    setError(err.message);
+    setIsCheckingOut(false);
+  }
+};
 
   if (items.length === 0) {
     return (
@@ -123,3 +125,5 @@ export default function CartPage() {
     </div>
   );
 }
+
+
