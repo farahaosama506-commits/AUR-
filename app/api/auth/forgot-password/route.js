@@ -1,20 +1,8 @@
 import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 import { forgotPasswordSchema } from '@/lib/validation';
-import { rateLimit } from '@/lib/rate-limit';
-
-// Rate Limit: 3 محاولات كل دقيقة
-const forgotPasswordRateLimit = rateLimit({
-  limit: 3,
-  windowMs: 60 * 1000,
-  message: 'Too many requests. Please try again in a minute.',
-});
 
 export async function POST(request) {
-  // ✅ Rate Limiting
-  const rateLimitResponse = await forgotPasswordRateLimit(request);
-  if (rateLimitResponse) return rateLimitResponse;
-
   try {
     const body = await request.json();
 
