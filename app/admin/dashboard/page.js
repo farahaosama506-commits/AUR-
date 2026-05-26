@@ -49,10 +49,10 @@ export default function AdminDashboard() {
     setLoading(false);
   }
 };
-  const handleLogout = () => {
-    document.cookie = 'admin_token=; path=/admin; max-age=0';
-    router.push('/admin/login');
-  };
+const handleLogout = () => {
+  document.cookie = 'admin_token=; path=/admin; max-age=0';
+  router.push('/admin/login');
+};
 
   if (loading) {
     return (

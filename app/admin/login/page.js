@@ -22,22 +22,27 @@ export default function AdminLogin() {
         password,
       });
 
-      if (error) throw error;
+      if (error) throw new Error('Invalid credentials');
 
       // Check if admin
-         const role = data.user?.user_metadata?.role;
-            if (role !== 'admin') {
-            await supabase.auth.signOut();
-            throw new Error('Access denied. Admin only.');
-            }
+      const role = data.user?.user_metadata?.role;
+      if (role !== 'admin') {
+        await supabase.auth.signOut();
+        throw new Error('Access denied');
+      }
 
-
-      // Set cookie
-      document.cookie = `admin_token=${btoa(JSON.stringify({ role: 'admin', id: data.user.id }))}; path=/admin; max-age=86400; SameSite=Strict`;
+      // Set secure cookie with expiry
+      const tokenData = {
+        role: 'admin',
+        id: data.user.id,
+        expiry: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+      };
+      
+      document.cookie = `admin_token=${btoa(JSON.stringify(tokenData))}; path=/admin; max-age=86400; SameSite=Strict; Secure`;
 
       router.push('/admin/dashboard');
     } catch (err) {
-      setError(err.message);
+      setError('Invalid credentials');
     } finally {
       setLoading(false);
     }
@@ -74,7 +79,7 @@ export default function AdminLogin() {
           textAlign: 'center',
           marginBottom: '2rem',
         }}>
-          Sign in to access the dashboard
+          Authorized access only
         </p>
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -150,7 +155,7 @@ export default function AdminLogin() {
               marginTop: '0.5rem',
             }}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Verifying...' : 'Sign In'}
           </button>
         </form>
       </div>

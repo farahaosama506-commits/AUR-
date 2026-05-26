@@ -5,21 +5,33 @@ export function middleware(request) {
 
   // Admin routes protection
   if (pathname.startsWith('/admin')) {
-    if (pathname === '/admin/login') return NextResponse.next();
-    
-    const adminToken = request.cookies.get('admin_token')?.value;
-    
-    if (!adminToken) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+    // Allow login page
+    if (pathname === '/admin/login') {
+      return NextResponse.next();
     }
-    
+
+    // Check admin token
+    const adminToken = request.cookies.get('admin_token')?.value;
+
+    if (!adminToken) {
+      // ❌ لا ترجع redirect - أرجع 404 (تخفي الصفحة)
+      return new NextResponse('Not Found', { status: 404 });
+    }
+
     try {
       const decoded = JSON.parse(atob(adminToken));
+      
+      // Check if admin
       if (decoded.role !== 'admin') {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
+        return new NextResponse('Not Found', { status: 404 });
+      }
+
+      // Check expiry (24 hours)
+      if (Date.now() > decoded.expiry) {
+        return new NextResponse('Not Found', { status: 404 });
       }
     } catch {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+      return new NextResponse('Not Found', { status: 404 });
     }
   }
 
