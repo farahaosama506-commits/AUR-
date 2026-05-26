@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from '@/lib/useTranslation';
@@ -13,163 +13,204 @@ export default function Header() {
   const [isTransparent, setIsTransparent] = useState(true);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { t, isLoaded } = useTranslation();
   const { toggleLanguage, language } = useLanguage();
   const { getItemCount } = useCartStore();
-  const { isLoggedIn, logout } = useAuthStore();
+  const { isLoggedIn, user, logout } = useAuthStore();
+  const userMenuRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsTransparent(window.scrollY < 50);
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setShowUserMenu(false);
+      }
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsTransparent(window.scrollY < 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSearchToggle = () => {
-    setShowSearchInput(!showSearchInput);
-    if (showSearchInput) {
-      setSearchQuery('');
-    }
-  };
+  const handleSearchToggle = useCallback(() => {
+    setShowSearchInput(prev => !prev);
+    if (showSearchInput) setSearchQuery('');
+  }, [showSearchInput]);
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = useCallback((e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery('');
       setShowSearchInput(false);
     }
-  };
+  }, [searchQuery, router]);
 
-  const handleSearchKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearchSubmit(e);
-    } else if (e.key === 'Escape') {
+  const handleSearchKeyDown = useCallback((e) => {
+    if (e.key === 'Enter') handleSearchSubmit(e);
+    else if (e.key === 'Escape') {
       setShowSearchInput(false);
       setSearchQuery('');
     }
-  };
+  }, [handleSearchSubmit]);
 
   const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
     logout();
+    setShowLogoutConfirm(false);
+    setShowUserMenu(false);
     router.push('/');
   };
 
-  const navItems = [
-    { href: '/shop', label: 'shop' },
-    { href: '/explore', label: 'explore' },
-    { href: '/archive', label: 'archive' }
-  ];
-  
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
+  };
+
   const itemCount = getItemCount();
 
-  if (!isLoaded) {
-    return null;
-  }
+  if (!isLoaded) return null;
 
   return (
-    <header className={`${styles.header} ${isTransparent ? styles.transparent : styles.opaque}`}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          <h2>AURÉ</h2>
-        </Link>
-        
-        <nav className={styles.nav}>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.navLink} ${pathname === item.href ? styles.active : ''}`}
-            >
-              {t(item.label)}
+    <>
+      <header className={`${styles.header} ${isTransparent ? styles.transparent : styles.opaque}`}>
+        <div className={styles.container}>
+          <Link href="/" className={styles.logo}>
+            <h2>AURÉ</h2>
+          </Link>
+
+          <nav className={styles.nav}>
+            <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`}>
+              HOME
             </Link>
-          ))}
-        </nav>
-        
-        <div className={styles.actions}>
-          {/* Search */}
-          <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
-            {showSearchInput && (
-              <input
-                type="text"
-                className={styles.searchInput}
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={handleSearchKeyDown}
-                autoFocus
-              />
-            )}
-            <button
-              type="button"
-              className={styles.search}
-              onClick={handleSearchToggle}
-              title="Search"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                <circle cx="8" cy="8" r="6" />
-                <path d="M12 12L18 18" />
-              </svg>
-            </button>
-            {showSearchInput && (
-              <button
-                type="submit"
-                className={styles.searchSubmit}
-                title="Search"
-              >
+            <Link href="/shop" className={`${styles.navLink} ${pathname === '/shop' ? styles.active : ''}`}>
+              SHOP
+            </Link>
+            <Link href="/explore" className={`${styles.navLink} ${pathname === '/explore' ? styles.active : ''}`}>
+              EXPLORE
+            </Link>
+            <Link href="/archive" className={`${styles.navLink} ${pathname === '/archive' ? styles.active : ''}`}>
+              ARCHIVE
+            </Link>
+          </nav>
+
+          <div className={styles.actions}>
+            <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
+              {showSearchInput && (
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearchKeyDown}
+                  autoFocus
+                />
+              )}
+              <button type="button" className={styles.search} onClick={handleSearchToggle} title="Search">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <polyline points="20 6 9 17 4 12" />
+                  <circle cx="8" cy="8" r="6" />
+                  <path d="M12 12L18 18" />
                 </svg>
               </button>
+            </form>
+
+            {isLoggedIn && (
+              <Link href="/cart" className={styles.cartIcon} title="Cart">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path d="M3 1H1v2h2l1.6 8.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L19 5H5" />
+                  <circle cx="7" cy="17" r="1.5" fill="currentColor" />
+                  <circle cx="15" cy="17" r="1.5" fill="currentColor" />
+                </svg>
+                {itemCount > 0 && <span className={styles.cartBadge}>{itemCount}</span>}
+              </Link>
             )}
-          </form>
 
-          {/* Cart Icon */}
-          {isLoggedIn && (
-            <Link href="/cart" className={styles.cartIcon} title="Cart">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                <path d="M3 1H1v2h2l1.6 8.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L19 5H5" />
-                <circle cx="7" cy="17" r="1.5" fill="currentColor" />
-                <circle cx="15" cy="17" r="1.5" fill="currentColor" />
-              </svg>
-              {itemCount > 0 && (
-                <span className={styles.cartBadge}>{itemCount}</span>
-              )}
-            </Link>
-          )}
+            {isLoggedIn ? (
+              <div className={styles.userMenuContainer} ref={userMenuRef}>
+                <button
+                  className={styles.userButton}
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  title="Account"
+                >
+                  <div className={styles.userAvatar}>
+                    <span>{user?.username?.charAt(0)?.toUpperCase() || 'U'}</span>
+                  </div>
+                </button>
 
-          {/* Account/Login Button */}
-          {isLoggedIn ? (
-            <button className={styles.account} onClick={handleLogout} title="Logout">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                <circle cx="10" cy="7" r="3" />
-                <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
-              </svg>
+                {showUserMenu && (
+                  <div className={styles.userDropdown}>
+                    <div className={styles.userInfo}>
+                      <div className={styles.userAvatarLarge}>
+                        <span>{user?.username?.charAt(0)?.toUpperCase() || 'U'}</span>
+                      </div>
+                      <div className={styles.userDetails}>
+                        <p className={styles.userName}>{user?.username || 'User'}</p>
+                        <p className={styles.userEmail}>{user?.email || 'user@example.com'}</p>
+                      </div>
+                    </div>
+                    <div className={styles.dropdownDivider} />
+                    <button className={styles.logoutButton} onClick={handleLogout}>
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link href="/login" className={styles.loginButton} title="Login">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <circle cx="10" cy="7" r="3" />
+                  <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
+                </svg>
+              </Link>
+            )}
+
+            <button className={styles.languageToggle} onClick={toggleLanguage} title="Switch language">
+              {language === 'en' ? 'AR' : 'EN'}
             </button>
-          ) : (
-            <Link href="/login" className={styles.loginButton} title="Login">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                <circle cx="10" cy="7" r="3" />
-                <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
-                <path d="M17 8l-3-3M17 8l-3 3" />
-              </svg>
-            </Link>
-          )}
 
-          {/* Language Toggle */}
-          <button 
-            className={styles.languageToggle} 
-            onClick={toggleLanguage}
-            title="Switch language"
-          >
-            {language === 'en' ? 'العربية' : 'English'}
-          </button>
+            <button
+              className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerOpen : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Menu"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {showLogoutConfirm && (
+        <div className={styles.modalOverlay} onClick={cancelLogout}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <h3 className={styles.modalTitle}>Sign Out</h3>
+            <p className={styles.modalText}>Are you sure you want to sign out?</p>
+            <div className={styles.modalActions}>
+              <button className={styles.cancelBtn} onClick={cancelLogout}>Cancel</button>
+              <button className={styles.confirmBtn} onClick={confirmLogout}>Sign Out</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
