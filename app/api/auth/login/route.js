@@ -41,10 +41,14 @@ export async function POST(request) {
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      user: { id: data.user?.id, email },
-    });
+      return NextResponse.json({
+  success: true,
+  user: {
+    id: data.user?.id,
+    email: data.user?.email,
+    username: data.user?.user_metadata?.username || data.user?.email?.split('@')[0] || 'User',
+  },
+});
 
   } catch (error) {
     return NextResponse.json(

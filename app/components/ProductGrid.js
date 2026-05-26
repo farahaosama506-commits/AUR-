@@ -1,17 +1,23 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ProductGrid.module.css';
 
-const products = [
-  { id: 1, name: '1', price: '$650.00', image: '/images/products/image1.jpg', colorCount: 3 },
-  { id: 2, name: '2', price: '$550.00', image: '/images/products/image2.jpg', colorCount: 4 },
-  { id: 3, name: '3', price: '$450.00', image: '/images/products/image3.jpg', colorCount: 3 },
-  { id: 4, name: '4', price: '$325.00', image: '/images/products/image4.jpg', colorCount: 3 }
-];
-
 export default function ProductGrid() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/products?featured=true&limit=4')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) setProducts(data.data);
+      });
+  }, []);
+
+  if (products.length === 0) return null;
+
   return (
     <section className={styles.section} id="products">
       <div className={styles.container}>
@@ -23,22 +29,23 @@ export default function ProductGrid() {
         <div className={styles.grid}>
           {products.map((product) => (
             <div key={product.id} className={styles.card}>
-              <div className={styles.imageContainer}>
-                <Image
+              <Link href={`/product/${product.id}`} className={styles.imageContainer}>
+                <img
                   src={product.image}
                   alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className={styles.image}
-                  loading="lazy"
                 />
-              </div>
+              </Link>
               <div className={styles.content}>
-                <h3 className={styles.name}>{product.name}</h3>
-                <p className={styles.price}>{product.price}</p>
+                <h3 className={styles.name}>
+                  <Link href={`/product/${product.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                    {product.name}
+                  </Link>
+                </h3>
+                <p className={styles.price}>${product.price}</p>
               </div>
               <div className={styles.actions}>
-                <Link href="/shop" className={styles.viewButton}>
+                <Link href={`/product/${product.id}`} className={styles.viewButton}>
                   VIEW PRODUCT
                 </Link>
               </div>

@@ -168,6 +168,12 @@ export default function Header() {
                         <p className={styles.userEmail}>{user?.email || 'user@example.com'}</p>
                       </div>
                     </div>
+
+                    <Link href="/my-orders" className={styles.dropdownLink} onClick={() => setShowUserMenu(false)}>
+   My Orders
+</Link>
+
+
                     <div className={styles.dropdownDivider} />
                     <button className={styles.logoutButton} onClick={handleLogout}>
                       Sign Out

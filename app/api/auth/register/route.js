@@ -30,11 +30,13 @@ export async function POST(request) {
     const { username, email, password } = result.data;
 
     const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { username } },
-    });
-
+  email,
+  password,
+  options: {
+    data: { username },
+    emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/confirm`,
+  },
+});
     if (error) {
       return NextResponse.json(
         { success: false, error: error.message },

@@ -42,20 +42,20 @@
 .card.featured {
   grid-column: 1 / 2;
 }
-
 .imageContainer {
-  position: relative;
-  aspect-ratio: 3 / 2;
+  position: relative;  /* ← هذا ضروري لـ fill */
+  aspect-ratio: 3/4;
   overflow: hidden;
-  background-color: var(--surface-container-low);
+  background: var(--surface-container-high, #f5f5f5);
+  display: block;      /* ← تأكد من هذا */
 }
 
 .image {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
+
+
+
 
 .imageContainer:hover .image {
   transform: scale(1.05);

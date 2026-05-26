@@ -24,9 +24,8 @@ export default function Footer() {
         <div className={styles.column}>
           <h4>{t('support')}</h4>
           <ul>
-            <li><Link href="/shipping">{t('shipping')}</Link></li>
-            <li><Link href="/warranty">{t('warranty')}</Link></li>
-            <li><Link href="/care">{t('care')}</Link></li>
+           <li><Link href="/privacy">Privacy Policy</Link></li>
+          <li><Link href="/terms">Terms of Service</Link></li>
           </ul>
         </div>
 

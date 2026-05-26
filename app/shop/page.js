@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import useCartStore from '@/lib/store/cartStore';
 import useAuthStore from '@/lib/store/auth-store';
 import styles from './shop.module.css';
+import Link from 'next/link';
 
 const categories = ['All', 'ZARA', 'NIKE', 'DOM HILL'];
 
@@ -118,7 +119,7 @@ export default function Shop() {
                   className={styles.card}
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <div className={styles.imageContainer}>
+                  <Link href={`/product/${product.id}`} className={styles.imageContainer}>
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -127,10 +128,14 @@ export default function Shop() {
                       className={styles.image}
                       loading="lazy"
                     />
-                  </div>
+                  </Link>
                   <div className={styles.content}>
                     <div className={styles.category}>{product.category}</div>
-                    <h3 className={styles.name}>{product.name}</h3>
+                    <h3 className={styles.name}>
+                      <Link href={`/product/${product.id}`} style={{ color: 'inherit', textDecoration: 'none'}}>
+                        {product.name}
+                      </Link>
+                    </h3>
                     <p className={styles.description}>{product.description}</p>
                     <div className={styles.price}>${product.price}</div>
                     <button
