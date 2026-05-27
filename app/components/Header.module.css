@@ -472,3 +472,58 @@
   background: #e5e7eb;
   margin: 0.5rem 0;
 }
+/* Hamburger - مخفي على الديسكتوب، ظاهر على الموبايل */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--on-surface, #1a1a1a);
+  transition: all 0.3s;
+}
+
+.hamburgerOpen span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerOpen span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Nav - مخفي على الموبايل */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 999;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
