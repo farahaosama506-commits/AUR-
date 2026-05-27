@@ -120,3 +120,64 @@
   text-decoration: underline;
   font-weight: 500;
 }
+.eyeButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.eyeButton:hover {
+  color: #1a1a1a;
+}
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  padding-right: 40px;
+}
+
+.passwordWrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+  min-width: auto;
+}
+
+.eyeBtn:hover {
+  color: #1a1a1a;
+}

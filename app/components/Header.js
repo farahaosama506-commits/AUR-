@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from '@/lib/useTranslation';
-import { useLanguage } from '@/lib/LanguageContext';
 import styles from './Header.module.css';
 import useCartStore from '@/lib/store/cartStore';
 import useAuthStore from '@/lib/store/auth-store';
@@ -19,7 +18,6 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { t, isLoaded } = useTranslation();
-  const { toggleLanguage, language } = useLanguage();
   const { getItemCount } = useCartStore();
   const { isLoggedIn, user, logout } = useAuthStore();
   const userMenuRef = useRef(null);
@@ -71,9 +69,7 @@ export default function Header() {
     }
   }, [handleSearchSubmit]);
 
-  const handleLogout = () => {
-    setShowLogoutConfirm(true);
-  };
+  const handleLogout = () => setShowLogoutConfirm(true);
 
   const confirmLogout = () => {
     logout();
@@ -82,9 +78,7 @@ export default function Header() {
     router.push('/');
   };
 
-  const cancelLogout = () => {
-    setShowLogoutConfirm(false);
-  };
+  const cancelLogout = () => setShowLogoutConfirm(false);
 
   const itemCount = getItemCount();
 
@@ -99,64 +93,45 @@ export default function Header() {
           </Link>
 
           <nav className={styles.nav}>
-            <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`}>
-              HOME
-            </Link>
-            <Link href="/shop" className={`${styles.navLink} ${pathname === '/shop' ? styles.active : ''}`}>
-              SHOP
-            </Link>
-            <Link href="/explore" className={`${styles.navLink} ${pathname === '/explore' ? styles.active : ''}`}>
-              EXPLORE
-            </Link>
-            <Link href="/archive" className={`${styles.navLink} ${pathname === '/archive' ? styles.active : ''}`}>
-              ARCHIVE
-            </Link>
+            <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`}>HOME</Link>
+            <Link href="/shop" className={`${styles.navLink} ${pathname === '/shop' ? styles.active : ''}`}>SHOP</Link>
+            <Link href="/explore" className={`${styles.navLink} ${pathname === '/explore' ? styles.active : ''}`}>EXPLORE</Link>
+            <Link href="/archive" className={`${styles.navLink} ${pathname === '/archive' ? styles.active : ''}`}>ARCHIVE</Link>
           </nav>
 
           <div className={styles.actions}>
+            {/* Search */}
             <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
               {showSearchInput && (
-                <input
-                  type="text"
-                  className={styles.searchInput}
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearchKeyDown}
-                  autoFocus
-                />
+                <input type="text" className={styles.searchInput} placeholder="Search..." value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleSearchKeyDown} autoFocus />
               )}
               <button type="button" className={styles.search} onClick={handleSearchToggle} title="Search">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <circle cx="8" cy="8" r="6" />
-                  <path d="M12 12L18 18" />
+                  <circle cx="8" cy="8" r="6" /><path d="M12 12L18 18" />
                 </svg>
               </button>
             </form>
 
+            {/* Cart */}
             {isLoggedIn && (
               <Link href="/cart" className={styles.cartIcon} title="Cart">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
                   <path d="M3 1H1v2h2l1.6 8.4a2 2 0 002 1.6h8.8a2 2 0 002-1.6L19 5H5" />
-                  <circle cx="7" cy="17" r="1.5" fill="currentColor" />
-                  <circle cx="15" cy="17" r="1.5" fill="currentColor" />
+                  <circle cx="7" cy="17" r="1.5" fill="currentColor" /><circle cx="15" cy="17" r="1.5" fill="currentColor" />
                 </svg>
                 {itemCount > 0 && <span className={styles.cartBadge}>{itemCount}</span>}
               </Link>
             )}
 
+            {/* User Menu */}
             {isLoggedIn ? (
               <div className={styles.userMenuContainer} ref={userMenuRef}>
-                <button
-                  className={styles.userButton}
-                  onClick={() => setShowUserMenu(!showUserMenu)}
-                  title="Account"
-                >
+                <button className={styles.userButton} onClick={() => setShowUserMenu(!showUserMenu)} title="Account">
                   <div className={styles.userAvatar}>
                     <span>{user?.username?.charAt(0)?.toUpperCase() || 'U'}</span>
                   </div>
                 </button>
-
                 {showUserMenu && (
                   <div className={styles.userDropdown}>
                     <div className={styles.userInfo}>
@@ -168,43 +143,51 @@ export default function Header() {
                         <p className={styles.userEmail}>{user?.email || 'user@example.com'}</p>
                       </div>
                     </div>
-
-                    <Link href="/my-orders" className={styles.dropdownLink} onClick={() => setShowUserMenu(false)}>
-   My Orders
-</Link>
-
-
+                    <Link href="/my-orders" className={styles.dropdownLink} onClick={() => setShowUserMenu(false)}>📋 My Orders</Link>
                     <div className={styles.dropdownDivider} />
-                    <button className={styles.logoutButton} onClick={handleLogout}>
-                      Sign Out
-                    </button>
+                    <button className={styles.logoutButton} onClick={handleLogout}>Sign Out</button>
                   </div>
                 )}
               </div>
             ) : (
               <Link href="/login" className={styles.loginButton} title="Login">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-                  <circle cx="10" cy="7" r="3" />
-                  <path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
+                  <circle cx="10" cy="7" r="3" /><path d="M2 17c0-2 3-4 8-4s8 2 8 4" />
                 </svg>
               </Link>
             )}
 
-            <button className={styles.languageToggle} onClick={toggleLanguage} title="Switch language">
-              {language === 'en' ? 'AR' : 'EN'}
-            </button>
-
-            <button
-              className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerOpen : ''}`}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Menu"
-            >
+            {/* Hamburger */}
+            <button className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerOpen : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
               <span /><span /><span />
             </button>
           </div>
         </div>
       </header>
 
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileMenu}>
+          <nav className={styles.mobileNav}>
+            <Link href="/" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>HOME</Link>
+            <Link href="/shop" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>SHOP</Link>
+            <Link href="/explore" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>EXPLORE</Link>
+            <Link href="/archive" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>ARCHIVE</Link>
+            <div className={styles.mobileDivider} />
+            {isLoggedIn ? (
+              <>
+                <Link href="/my-orders" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>📋 My Orders</Link>
+                <button className={styles.mobileNavLink} onClick={() => { handleLogout(); setMobileMenuOpen(false); }}>Sign Out</button>
+              </>
+            ) : (
+              <Link href="/login" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Login</Link>
+            )}
+          </nav>
+        </div>
+      )}
+
+      {/* Logout Modal */}
       {showLogoutConfirm && (
         <div className={styles.modalOverlay} onClick={cancelLogout}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>

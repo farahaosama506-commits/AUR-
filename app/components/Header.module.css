@@ -429,3 +429,46 @@
 .dropdownLink:hover {
   background: #f3f4f6;
 }
+.mobileMenu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 999;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.mobileNavLink:hover {
+  background: #f3f4f6;
+}
+
+.mobileDivider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0.5rem 0;
+}
