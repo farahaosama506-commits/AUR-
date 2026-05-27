@@ -80,6 +80,11 @@ export default function Header() {
 
   const cancelLogout = () => setShowLogoutConfirm(false);
 
+   const handleMobileNav = (href) => {
+    setMobileMenuOpen(false);
+    setTimeout(() => router.push(href), 100);
+  };
+
   const itemCount = getItemCount();
 
   if (!isLoaded) return null;
@@ -167,25 +172,28 @@ export default function Header() {
       </header>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className={styles.mobileMenu}>
-          <nav className={styles.mobileNav}>
-            <Link href="/" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>HOME</Link>
-            <Link href="/shop" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>SHOP</Link>
-            <Link href="/explore" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>EXPLORE</Link>
-            <Link href="/archive" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>ARCHIVE</Link>
-            <div className={styles.mobileDivider} />
-            {isLoggedIn ? (
-              <>
-                <Link href="/my-orders" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>📋 My Orders</Link>
-                <button className={styles.mobileNavLink} onClick={() => { handleLogout(); setMobileMenuOpen(false); }}>Sign Out</button>
-              </>
-            ) : (
-              <Link href="/login" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Login</Link>
-            )}
-          </nav>
-        </div>
+        {/* Mobile Menu */}
+{mobileMenuOpen && (
+  <div className={styles.mobileMenu}>
+    <nav className={styles.mobileNav}>
+      <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/')}>HOME</button>
+      <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/shop')}>SHOP</button>
+      <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/explore')}>EXPLORE</button>
+      <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/archive')}>ARCHIVE</button>
+      
+      <div className={styles.mobileDivider} />
+      
+      {isLoggedIn ? (
+        <>
+          <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/my-orders')}>📋 My Orders</button>
+          <button className={styles.mobileNavLink} onClick={() => { handleLogout(); setMobileMenuOpen(false); }}>Sign Out</button>
+        </>
+      ) : (
+        <button className={styles.mobileNavLink} onClick={() => handleMobileNav('/login')}>Login</button>
       )}
+    </nav>
+  </div>
+)}
 
       {/* Logout Modal */}
       {showLogoutConfirm && (
