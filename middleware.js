@@ -3,35 +3,31 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
-  // Admin routes protection
+  // Admin routes - فقط نتحقق من وجود الكوكي
   if (pathname.startsWith('/admin')) {
-    // Allow login page
+    // السماح لصفحة login
     if (pathname === '/admin/login') {
       return NextResponse.next();
     }
 
-    // Check admin token
+    // التحقق من admin_token
     const adminToken = request.cookies.get('admin_token')?.value;
 
     if (!adminToken) {
-      // ❌ لا ترجع redirect - أرجع 404 (تخفي الصفحة)
-      return new NextResponse('Not Found', { status: 404 });
+      // الرجوع لصفحة login بدل 404
+      return NextResponse.redirect(new URL('/admin/login', request.url));
     }
 
     try {
       const decoded = JSON.parse(atob(adminToken));
-      
-      // Check if admin
       if (decoded.role !== 'admin') {
-        return new NextResponse('Not Found', { status: 404 });
+        return NextResponse.redirect(new URL('/admin/login', request.url));
       }
-
-      // Check expiry (24 hours)
       if (Date.now() > decoded.expiry) {
-        return new NextResponse('Not Found', { status: 404 });
+        return NextResponse.redirect(new URL('/admin/login', request.url));
       }
     } catch {
-      return new NextResponse('Not Found', { status: 404 });
+      return NextResponse.redirect(new URL('/admin/login', request.url));
     }
   }
 
