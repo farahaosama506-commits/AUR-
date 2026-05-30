@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURÉ - Documentation</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-secondary: #64748b;
+            --primary: #6366f1;
+            --border: #e5e7eb;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sidebar a {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Code Block */
+        pre {
+            background: #1a1a1a;
+            color: #e5e7eb;
+            padding: 1.25rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin: 0.75rem 0;
+        }
+
+        code {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+        }
+
+        .inline-code {
+            background: #f1f5f9;
+            color: var(--danger);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* Status Badges */
+        .status {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-processing { background: #dbeafe; color: #2563eb; }
+        .status-shipped { background: #ede9fe; color: #7c3aed; }
+        .status-delivered { background: #d1fae5; color: #059669; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+
+        /* List */
+        ul {
+            padding-left: 1.5rem;
+            margin: 0.75rem 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Steps */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .sidebar {
+                width: 100%;
+                position: static;
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            .sidebar nav {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+            .sidebar a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem;
+            }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="#" class="logo">AURÉ</a>
+    <span class="badge">v1.0</span>
+</header>
+
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#tech-stack">Tech Stack</a>
+            <a href="#getting-started">Getting Started</a>
+            <a href="#admin-panel">Admin Panel</a>
+            <a href="#authentication">Authentication</a>
+            <a href="#products">Products</a>
+            <a href="#orders">Orders</a>
+            <a href="#payment">Payment</a>
+            <a href="#security">Security</a>
+            <a href="#deployment">Deployment</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+        
+        <!-- Overview -->
+        <section class="section" id="overview">
+            <h1>📚 AURÉ Documentation</h1>
+            <p class="lead">
+                Complete documentation for the AURÉ E-commerce Platform. 
+                A modern, full-stack online store built with Next.js and Supabase.
+            </p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🛍️</div>
+                    <h3 class="card-title">Online Store</h3>
+                    <p class="card-desc">Fully functional e-commerce with product browsing, cart management, and secure checkout.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👑</div>
+                    <h3 class="card-title">Admin Dashboard</h3>
+                    <p class="card-desc">Manage products, users, and orders from a secure, dedicated admin panel.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3 class="card-title">Authentication</h3>
+                    <p class="card-desc">Complete auth system with login, register, password reset, and email confirmation.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💳</div>
+                    <h3 class="card-title">Payment Gateway</h3>
+                    <p class="card-desc">Stripe integration ready for live payments with secure checkout sessions.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3 class="card-title">Responsive Design</h3>
+                    <p class="card-desc">Mobile-first design with hamburger menu, touch support, and adaptive layouts.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">Security</h3>
+                    <p class="card-desc">Zod validation, rate limiting, security headers, JWT, and RLS policies.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="section" id="tech-stack">
+            <h2>🛠️ Tech Stack</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Technology</th>
+                            <th>Version</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Framework</td><td><strong>Next.js</strong></td><td>15+</td></tr>
+                        <tr><td>UI Library</td><td><strong>React</strong></td><td>19</td></tr>
+                        <tr><td>Database</td><td><strong>PostgreSQL (Supabase)</strong></td><td>Latest</td></tr>
+                        <tr><td>Authentication</td><td><strong>Supabase Auth + JWT</strong></td><td>Latest</td></tr>
+                        <tr><td>State Management</td><td><strong>Zustand</strong></td><td>5+</td></tr>
+                        <tr><td>Payment</td><td><strong>Stripe</strong></td><td>17+</td></tr>
+                        <tr><td>Validation</td><td><strong>Zod</strong></td><td>3+</td></tr>
+                        <tr><td>Styling</td><td><strong>CSS Modules</strong></td><td>—</td></tr>
+                        <tr><td>Deployment</td><td><strong>Vercel</strong></td><td>—</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section class="section" id="getting-started">
+            <h2>🚀 Getting Started</h2>
+            
+            <h3>Prerequisites</h3>
+            <ul>
+                <li><strong>Node.js</strong> v18 or higher</li>
+                <li><strong>npm</strong> v9 or higher</li>
+                <li><strong>Supabase</strong> account (free tier)</li>
+                <li><strong>Stripe</strong> account (for payments)</li>
+            </ul>
+
+            <h3>Installation</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Clone the repository</h4>
+                        <p><code class="inline-code">git clone &lt;repository-url&gt;</code></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Install dependencies</h4>
+                        <p><code class="inline-code">npm install</code></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Configure environment variables</h4>
+                        <p>Create <code class="inline-code">.env.local</code> with your Supabase and Stripe keys</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Run the development server</h4>
+                        <p><code class="inline-code">npm run dev</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Environment Variables</h3>
+            <pre><code># Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_xxxxx
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_xxxxx
+
+# JWT
+JWT_SECRET=your-jwt-secret-64-chars
+JWT_REFRESH_SECRET=your-refresh-secret-64-chars
+
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
+STRIPE_SECRET_KEY=sk_test_xxxxx</code></pre>
+        </section>
+
+        <!-- Admin Panel -->
+        <section class="section" id="admin-panel">
+            <h2>👑 Admin Panel</h2>
+            <p>The admin panel is accessible at <code class="inline-code">/admin/login</code>.</p>
+            
+            <h3>Default Admin Credentials</h3>
+            <ul>
+                <li><strong>Email:</strong> admin@aure.com</li>
+                <li><strong>Password:</strong> (set during setup)</li>
+            </ul>
+
+            <h3>Features</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Dashboard</h3>
+                    <p class="card-desc">Overview of products, users, and orders count.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📦</div>
+                    <h3 class="card-title">Product Management</h3>
+                    <p class="card-desc">Add, edit, and delete products with images and categories.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">User Management</h3>
+                    <p class="card-desc">View users, change roles (User/Admin), add new users, delete users.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3 class="card-title">Order Tracking</h3>
+                    <p class="card-desc">View all orders with status updates and detailed breakdowns.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication -->
+        <section class="section" id="authentication">
+            <h2>🔐 Authentication</h2>
+            
+            <h3>User Flows</h3>
+            <ul>
+                <li><strong>Register:</strong> <code class="inline-code">/register</code> — Create new account with username, email, password</li>
+                <li><strong>Login:</strong> <code class="inline-code">/login</code> — Sign in with email and password</li>
+                <li><strong>Forgot Password:</strong> <code class="inline-code">/forgot-password</code> — Receive reset code via email</li>
+                <li><strong>Reset Password:</strong> <code class="inline-code">/reset-password</code> — Enter code and set new password</li>
+                <li><strong>Email Confirmation:</strong> Automatic email sent after registration</li>
+            </ul>
+        </section>
+
+        <!-- Products -->
+        <section class="section" id="products">
+            <h2>📦 Products</h2>
+            
+            <h3>Product Management (Admin)</h3>
+            <ul>
+                <li>Add products with <strong>name, description, price, category, image</strong></li>
+                <li>Edit existing products inline</li>
+                <li>Delete products with confirmation</li>
+                <li>Set <strong>featured</strong> status for homepage display</li>
+                <li>Manage <strong>stock quantity</strong></li>
+            </ul>
+
+            <h3>Categories</h3>
+            <p>Default categories: <span class="status status-pending">ZARA</span> <span class="status status-processing">NIKE</span> <span class="status status-shipped">DOM HILL</span> <span class="status status-delivered">WOMEN</span> <span class="status status-cancelled">ACCESSORIES</span></p>
+        </section>
+
+        <!-- Orders -->
+        <section class="section" id="orders">
+            <h2>📋 Orders</h2>
+            
+            <h3>Order Status Flow</h3>
+            <p>
+                <span class="status status-pending">Pending</span> → 
+                <span class="status status-processing">Processing</span> → 
+                <span class="status status-shipped">Shipped</span> → 
+                <span class="status status-delivered">Delivered</span>
+            </p>
+
+            <h3>Status Meanings</h3>
+            <ul>
+                <li><span class="status status-pending">Pending</span> — Order placed, awaiting payment confirmation</li>
+                <li><span class="status status-processing">Processing</span> — Payment confirmed, preparing order</li>
+                <li><span class="status status-shipped">Shipped</span> — Order dispatched to customer</li>
+                <li><span class="status status-delivered">Delivered</span> — Order received by customer</li>
+                <li><span class="status status-cancelled">Cancelled</span> — Order cancelled</li>
+            </ul>
+        </section>
+
+        <!-- Payment -->
+        <section class="section" id="payment">
+            <h2>💳 Payment</h2>
+            
+            <h3>Stripe Integration</h3>
+            <p>The platform uses <strong>Stripe Checkout</strong> for secure payment processing.</p>
+            
+            <h3>Test Mode</h3>
+            <p>Use test card: <code class="inline-code">4242 4242 4242 4242</code> with any future date and any 3-digit CVC.</p>
+
+            <h3>Live Mode</h3>
+            <ol>
+                <li>Activate your Stripe account</li>
+                <li>Get your <strong>Live Keys</strong> from Stripe Dashboard</li>
+                <li>Replace <code class="inline-code">pk_test_*</code> with <code class="inline-code">pk_live_*</code></li>
+                <li>Replace <code class="inline-code">sk_test_*</code> with <code class="inline-code">sk_live_*</code></li>
+            </ol>
+        </section>
+
+        <!-- Security -->
+        <section class="section" id="security">
+            <h2>🛡️ Security</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Feature</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Zod Validation</strong></td><td>Input validation for all API routes</td></tr>
+                        <tr><td><strong>Rate Limiting</strong></td><td>3 requests/min for register, 5/min for login</td></tr>
+                        <tr><td><strong>Security Headers</strong></td><td>X-Frame-Options, XSS Protection, HSTS</td></tr>
+                        <tr><td><strong>JWT Authentication</strong></td><td>Secure tokens with 24-hour expiry</td></tr>
+                        <tr><td><strong>RLS Policies</strong></td><td>Row-level security on database tables</td></tr>
+                        <tr><td><strong>Password Hashing</strong></td><td>bcrypt + pepper for password encryption</td></tr>
+                        <tr><td><strong>Admin Protection</strong></td><td>Middleware returns 404 for unauthorized access</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Deployment -->
+        <section class="section" id="deployment">
+            <h2>🚀 Deployment</h2>
+            
+            <h3>Deploy to Vercel</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Push to GitHub</h4>
+                        <p>Upload your project to a GitHub repository</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Import to Vercel</h4>
+                        <p>Go to vercel.com and import your repository</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Set Environment Variables</h4>
+                        <p>Add all variables from <code class="inline-code">.env.local</code> in Vercel settings</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Deploy</h4>
+                        <p>Click Deploy and your site will be live in minutes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2026 AURÉ. All rights reserved. | Built with Next.js & Supabase</p>
+</footer>
+
+<script>
+    // Smooth scroll for sidebar links
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
