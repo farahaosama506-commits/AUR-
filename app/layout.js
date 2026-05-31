@@ -1,9 +1,6 @@
-'use client';
-
-import { useEffect } from 'react';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import { LanguageProvider } from '@/lib/LanguageContext';
-import useAuthStore from '@/lib/store/auth-store';
 import './globals.css';
 
 const inter = Inter({ 
@@ -13,19 +10,24 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+export const metadata = {
+  title: 'AURÉ - Fashion Store',
+  description: 'Discover your style with AURÉ',
+};
+
 export default function RootLayout({ children }) {
-  const { checkAuth } = useAuthStore();
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
   return (
     <html lang="en" className={inter.variable}>
       <body>
         <LanguageProvider>
           {children}
         </LanguageProvider>
+        
+        {/* ✅ تأجيل السكربتات الخارجية */}
+        <Script 
+          src="https://js.stripe.com/v3/" 
+          strategy="lazyOnload" 
+        />
       </body>
     </html>
   );

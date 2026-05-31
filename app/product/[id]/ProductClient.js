@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import useCartStore from '@/lib/store/cartStore';
 import useAuthStore from '@/lib/store/auth-store';
+
+// ✅ Dynamic imports
+const Header = dynamic(() => import('@/app/components/Header'), { loading: () => <div style={{ height: 70 }} /> });
+const Footer = dynamic(() => import('@/app/components/Footer'), { loading: () => <div style={{ height: 200 }} /> });
 
 export default function ProductClient({ product }) {
   const router = useRouter();
@@ -48,7 +51,15 @@ export default function ProductClient({ product }) {
           
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
             <div style={{ position: 'relative', aspectRatio: '3/4', borderRadius: '12px', overflow: 'hidden', background: '#f8fafc' }}>
-              <Image src={product.image} alt={product.name} fill style={{ objectFit: 'cover' }} priority />
+              <Image 
+                src={product.image} 
+                alt={product.name} 
+                fill 
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={75}
+                priority 
+                style={{ objectFit: 'cover' }} 
+              />
             </div>
             
             <div>

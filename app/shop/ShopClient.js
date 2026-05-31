@@ -1,15 +1,22 @@
 'use client';
 
-import Link from 'next/link';
-
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
+import Link from 'next/link';
 import useCartStore from '@/lib/store/cartStore';
 import useAuthStore from '@/lib/store/auth-store';
 import styles from './shop.module.css';
+
+// ✅ Dynamic import للمكونات الثقيلة
+const Header = dynamic(() => import('@/app/components/Header'), {
+  loading: () => <div style={{ height: 70 }} />,
+});
+
+const Footer = dynamic(() => import('@/app/components/Footer'), {
+  loading: () => <div style={{ height: 200 }} />,
+});
 
 const categories = ['All', 'ZARA', 'NIKE', 'DOM HILL'];
 
@@ -55,7 +62,15 @@ export default function ShopClient({ products, error }) {
           {filteredProducts.map((product) => (
             <div key={product.id} className={styles.card}>
               <Link href={`/product/${product.id}`} className={styles.imageContainer}>
-                <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 50vw, 25vw" className={styles.image} loading="lazy" />
+                <Image 
+                  src={product.image} 
+                  alt={product.name} 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={75}
+                  loading="lazy"
+                  className={styles.image} 
+                />
               </Link>
               <div className={styles.content}>
                 <div className={styles.category}>{product.category}</div>
