@@ -148,7 +148,9 @@
 
 ### Installation
 
-```bash
+
+
+
 # 1. Clone the repository
 git clone https://github.com/farahaosama506-commits/AUR-.git
 cd AUR-
